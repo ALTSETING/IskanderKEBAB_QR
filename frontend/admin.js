@@ -10,7 +10,7 @@ const autoBtn = document.getElementById("auto");
 const API = window.__API_BASE__
   || ((window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")
     ? ""
-    : "https://restaurant-of-the-future.onrender.com");
+    : "https://iskanderkebab-qr.onrender.com");
 
 
 // ---- TABLE FILTERS ----
