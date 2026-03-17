@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin — Orders</title>
+
+  <!-- ВАЖЛИВО: через /static щоб FastAPI точно віддав файл -->
+  <link rel="stylesheet" href="admin.css" />
+</head>
+
+<body>
+
+  <!-- LOGIN -->
+  <div class="login-box" id="loginBox">
+    <input type="text" id="username" placeholder="Login" autocomplete="username">
+    <input type="password" id="password" placeholder="Password" autocomplete="current-password">
+    <button type="button" onclick="login()">Enter</button>
+  </div>
+
+  <!-- SECRET (весь UI тільки тут, тому до логіну нічого не видно) -->
+  <div id="secret" style="display:none;">
+    <div class="wrap">
+      <h1 class="title">Офіціант — замовлення</h1>
+      
+
+      <div class="top">
+        <div class="tablesFilter" id="tablesFilter"></div>
+        <label class="mini">Статус:</label>
+        <select id="status">
+          <option value="">Усі</option>
+          <option value="ready">ready</option>
+          <option value="canceled">canceled</option>
+        </select>
+
+        <label class="mini">Пошук по столу (table_code):</label>
+        <input id="tableSearch" placeholder="наприклад A1" />
+
+        <button class="btn2" id="refresh" type="button">Оновити</button>
+        <button class="btn2" id="auto" type="button">Авто: ON</button>
+
+        <span class="mini" id="info"></span>
+      </div>
+
+      <div id="list" class="mini list">Loading...</div>
+      <div id="msg" class="mini msg"></div>
+    </div>
+  </div>
+
+  <!-- ВАЖЛИВО: теж через /static -->
+  <script src="admin.js"></script>
+
+  <!-- (опціонально) Enter у полі пароля запускає login() -->
+  <script>
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && document.getElementById("loginBox")?.style.display !== "none") {
+        login();
+      }
+    });
+  </script>
+
+<script>
+  const btn = document.getElementById("ctaBtn");
+
+  btn.addEventListener("click", () => {
+    btn.classList.add("active");
+  });
+</script>
+</body>
+</html>
