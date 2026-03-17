@@ -1,0 +1,155 @@
+import os
+from fastapi import FastAPI, HTTPException, Query
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import RedirectResponse
+from fastapi.staticfiles import StaticFiles
+from pydantic import BaseModel, Field
+from typing import List, Literal, Dict, Optional
+from datetime import datetime
+from pathlib import Path
+
+app = FastAPI(title="QR API")
+
+# --- CORS (можеш лишити як було) ---
+allowed_origins_env = os.getenv("ALLOWED_ORIGINS", "*")
+allowed_origins = ["*"] if allowed_origins_env.strip() == "*" else [
+    o.strip() for o in allowed_origins_env.split(",") if o.strip()
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=allowed_origins,
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+BASE_DIR = Path(__file__).resolve().parent
+FRONTEND_DIR = BASE_DIR.parent / "frontend"
+
+# ------------------ DB (поки в пам'яті) ------------------
+MENU_DB = [
+    {"id": 1, "name": "Burger", "price": 35.0, "category": "Hot", "is_active": True},
+    {"id": 2, "name": "Fries", "price": 12.0, "category": "Hot", "is_active": True},
+    {"id": 3, "name": "Cola", "price": 9.0, "category": "Drinks", "is_active": True},
+    {"id": 4, "name": "Beer", "price": 15.0, "category": "Drinks", "is_active": True},
+    {"id": 5, "name": "Pizza", "price": 31.0, "category": "Hot", "is_active": True},
+    {"id": 6, "name": "Cake", "price": 21.0, "category": "Desserts", "is_active": True},
+]
+
+ORDERS_DB: Dict[int, dict] = {}
+NEXT_ORDER_ID = 100
+
+# ✅ статуси як в admin.html
+OrderStatus = Literal["new", "cooking", "ready", "served", "canceled"]
+
+# ------------------ Models ------------------
+class MenuItemOut(BaseModel):
+    id: int
+    name: str
+    price: float
+    category: str
+    is_active: bool
+
+class OrderItemIn(BaseModel):
+    product_id: int
+    qty: int = Field(ge=1, le=20)
+    comment: str = ""
+
+class OrderCreateIn(BaseModel):
+    table_code: str = Field(min_length=1, max_length=30)
+    items: List[OrderItemIn] = Field(min_length=1)
+
+class OrderCreateOut(BaseModel):
+    order_id: int
+    status: OrderStatus
+
+class KitchenOrderOut(BaseModel):
+    order_id: int
+    table_code: str
+    status: OrderStatus
+    created_at: datetime
+    items: List[dict]
+
+class StatusUpdateIn(BaseModel):
+    status: OrderStatus
+
+# ------------------ API ------------------
+@app.get("/api/menu", response_model=List[MenuItemOut])
+def get_menu(category: Optional[str] = Query(default=None)):
+    items = [m for m in MENU_DB if m["is_active"]]
+    if category:
+        category_l = category.strip().lower()
+        items = [m for m in items if m["category"].strip().lower() == category_l]
+    return items
+
+@app.post("/api/orders", response_model=OrderCreateOut)
+def create_order(payload: OrderCreateIn):
+    global NEXT_ORDER_ID
+
+    menu_by_id = {m["id"]: m for m in MENU_DB}
+    for it in payload.items:
+        product = menu_by_id.get(it.product_id)
+        if (not product) or (not product["is_active"]):
+            raise HTTPException(status_code=400, detail=f"Product {it.product_id} unavailable")
+
+    NEXT_ORDER_ID += 1
+    order_id = NEXT_ORDER_ID
+
+    items_snapshot = []
+    for it in payload.items:
+        product = menu_by_id[it.product_id]
+        items_snapshot.append({
+            "product_id": it.product_id,
+            "name": product["name"],
+            "qty": it.qty,
+            "price_at_time": product["price"],
+            "comment": it.comment,
+        })
+
+    ORDERS_DB[order_id] = {
+        "order_id": order_id,
+        "table_code": payload.table_code,
+        "status": "new",
+        "created_at": datetime.utcnow(),
+        "items": items_snapshot,
+    }
+
+    return {"order_id": order_id, "status": "new"}
+
+@app.get("/api/kitchen/orders", response_model=List[KitchenOrderOut])
+def kitchen_orders(status: Optional[OrderStatus] = Query(default=None)):
+    orders = list(ORDERS_DB.values())
+    if status:
+        orders = [o for o in orders if o["status"] == status]
+    orders.sort(key=lambda o: o["created_at"], reverse=True)
+    return orders
+
+@app.patch("/api/orders/{order_id}/status")
+def update_status(order_id: int, payload: StatusUpdateIn):
+    order = ORDERS_DB.get(order_id)
+    if not order:
+        raise HTTPException(status_code=404, detail="Order not found")
+    order["status"] = payload.status
+    return {"ok": True, "order_id": order_id, "status": order["status"]}
+
+@app.delete("/api/orders/{order_id}")
+def delete_order(order_id: int):
+    order = ORDERS_DB.pop(order_id, None)
+    if not order:
+        raise HTTPException(status_code=404, detail="Order not found")
+    return {"ok": True, "order_id": order_id}
+
+
+# ------------------ Frontend ------------------
+if not FRONTEND_DIR.exists():
+    raise RuntimeError(f"FRONTEND_DIR not found: {FRONTEND_DIR}")
+
+# ✅ Важливо: монтуємо фронтенд як "сайт" з кореня "/"
+# Тоді index.html, styles.css, app.js працюють без змін.
+app.mount("/", StaticFiles(directory=FRONTEND_DIR, html=True), name="frontend")
+
+# (необов'язково) зручне посилання /admin -> /admin.html
+@app.get("/admin")
+def admin_redirect():
+    return RedirectResponse(url="/admin.html")
