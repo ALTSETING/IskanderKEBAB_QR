@@ -1,5 +1,5 @@
 const API = window.location.hostname.endsWith("vercel.app")
-  ? "https://iskanderkebab-qr.onrender.com"
+  ? "https://restaurant-of-the-future.onrender.com"
   : ""; // якщо сайт і API на одному домені
 
 const menuListEl = document.getElementById("menuList");
@@ -214,3 +214,57 @@ document.getElementById("orderBtn").addEventListener("click", async () => {
 loadMenu();
 
 ;
+
+const tabMenu = document.getElementById("tabMenu");
+const tabCart = document.getElementById("tabCart");
+const menuSection = document.getElementById("menuSection");
+const cartSection = document.getElementById("cartSection");
+
+function setMobileTab(tab) {
+  if (!menuSection || !cartSection || !tabMenu || !tabCart) return;
+
+  if (tab === "menu") {
+    menuSection.classList.add("active-section");
+    cartSection.classList.remove("active-section");
+
+    tabMenu.classList.add("active");
+    tabCart.classList.remove("active");
+  } else {
+    cartSection.classList.add("active-section");
+    menuSection.classList.remove("active-section");
+
+    tabCart.classList.add("active");
+    tabMenu.classList.remove("active");
+  }
+}
+
+function handleMobileTabs() {
+  if (!menuSection || !cartSection || !tabMenu || !tabCart) return;
+
+  if (window.innerWidth <= 768) {
+    if (
+      !menuSection.classList.contains("active-section") &&
+      !cartSection.classList.contains("active-section")
+    ) {
+      setMobileTab("menu");
+    }
+  } else {
+    menuSection.classList.remove("active-section");
+    cartSection.classList.remove("active-section");
+
+    tabMenu.classList.remove("active");
+    tabCart.classList.remove("active");
+  }
+}
+
+if (tabMenu) {
+  tabMenu.addEventListener("click", () => setMobileTab("menu"));
+}
+
+if (tabCart) {
+  tabCart.addEventListener("click", () => setMobileTab("cart"));
+}
+
+window.addEventListener("resize", handleMobileTabs);
+
+handleMobileTabs();
