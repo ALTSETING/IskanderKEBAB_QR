@@ -24,19 +24,18 @@
       <button class="btn3" type="button" data-cat="Desserts">Desery</button>
     </div>
     <div class="row mt14">
-      <div class="card menu">
+      <div class="card menu" id="menuSection">
         <h2 class="h2">Menu</h2>
         <div id="menuList" class="mini">Loading...</div>
       </div>
 
-      <div class="card cart">
+      <div class="card cart" id="cartSection">
         <h2 class="h2">Koszyk</h2>
 
         <label class="mini">Table code</label>
-        <input id="tableCode" placeholder="наприклад: abx92k" value="A1", value = "b2" />
+        <input id="tableCode" placeholder="například: abx92k" value="A1" />
 
         <div id="cartList" class="mini mt10">Na razie pusto</div>
-
         <div class="total" id="total">Total: 0 zł</div>
 
         <div class="actions">
@@ -47,6 +46,18 @@
         <div id="msg" class="mini mt12"></div>
       </div>
     </div>
+
+    <div class="mobile-bottom-nav">
+      <button class="mobile-tab active" id="tabMenu" type="button" data-tab="menu">
+        <span class="mobile-tab-icon">☕</span>
+        <span class="mobile-tab-text">Menu</span>
+      </button>
+
+      <button class="mobile-tab" id="tabCart" type="button" data-tab="cart">
+        <span class="mobile-tab-icon">🛒</span>
+        <span class="mobile-tab-text">Koszyk</span>
+      </button>
+</div>
   </div>
 
 </body>
