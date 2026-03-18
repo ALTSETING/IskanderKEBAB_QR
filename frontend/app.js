@@ -211,7 +211,7 @@ document.getElementById("orderBtn").addEventListener("click", async () => {
   }
 });
 
-loadMenu();
+
 
 ;
 
@@ -268,3 +268,4 @@ if (tabCart) {
 window.addEventListener("resize", handleMobileTabs);
 
 handleMobileTabs();
+loadMenu();
