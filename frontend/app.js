@@ -213,7 +213,12 @@ document.getElementById("orderBtn").addEventListener("click", async () => {
 
 
 
-;
+
+
+
+
+
+loadMenu();
 
 const tabMenu = document.getElementById("tabMenu");
 const tabCart = document.getElementById("tabCart");
@@ -268,4 +273,4 @@ if (tabCart) {
 window.addEventListener("resize", handleMobileTabs);
 
 handleMobileTabs();
-loadMenu();
+
