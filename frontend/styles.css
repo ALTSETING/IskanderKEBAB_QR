@@ -410,8 +410,8 @@ label.mini {
   }
 
   .mobile-tab-icon {
-    width: 34px;
-    height: 34px;
+     width: 77px;
+    height: 77px;
     line-height: 1;
     display: inline-flex;
     align-items: center;
@@ -424,7 +424,6 @@ label.mini {
     display: block;
     filter: drop-shadow(0 0 0 rgba(0, 112, 74, 0));
     transition: filter 0.2s ease;
-    line-height: 1;
   }
 
   .mobile-tab-text {
@@ -440,4 +439,3 @@ label.mini {
     filter: drop-shadow(0 0 6px rgba(0, 112, 74, 0.45));
   }
 }
-
