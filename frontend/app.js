@@ -12,6 +12,13 @@ const tableCodeEl = document.getElementById("tableCode");
 let menu = [];
 let cart = []; // [{product_id, name, price, qty, comment}]
 
+function getOptionSignature(optionSelections = {}) {
+  return Object.keys(optionSelections)
+    .sort()
+    .map(k => `${k}:${optionSelections[k] || ""}`)
+    .join("|");
+}
+
 function money(n) {
   return (Math.round(n * 100) / 100).toFixed(2);
 }
@@ -54,6 +61,28 @@ function renderCart(){
       <div style="flex:1;">
         <div class="itemTitle">${esc(c.name)}</div>
         <div class="mini">${money(c.price)} zł · Ilość: ${c.qty}</div>
+        ${(c.optionGroups || []).map(group => `
+          <div class="optionGroup">
+            <div class="optionHeader">
+              <span class="optionTitle">${esc(group.title)}</span>
+              ${group.required ? `<span class="optionRequired">obowiązkowo</span>` : ""}
+            </div>
+            <div class="mini">Wybierz 1 opcję</div>
+            <div class="optionChoices">
+              ${(group.options || []).map(opt => `
+                <label class="optionChoice">
+                  <span>${esc(opt)}</span>
+                  <input
+                    type="radio"
+                    name="opt-${idx}-${esc(group.group_id)}"
+                    ${c.optionSelections?.[group.group_id] === opt ? "checked" : ""}
+                    onchange="setItemOption(${idx}, '${esc(group.group_id)}', '${esc(group.title)}', '${esc(opt)}')"
+                  />
+                </label>
+              `).join("")}
+            </div>
+          </div>
+        `).join("")}
 
         <div class="commentBlock">
           <button class="btnComment" type="button"
@@ -88,9 +117,24 @@ window.addToCart = (id) => {
   const p = menu.find(x => x.id === id);
   if(!p) return;
 
-  const ex = cart.find(x => x.product_id === id);
+  const optionGroups = Array.isArray(p.option_groups) ? p.option_groups : [];
+  const optionSelections = Object.fromEntries(optionGroups.map(g => [g.group_id, ""]));
+  const optionSignature = getOptionSignature(optionSelections);
+
+  const ex = cart.find(x => x.product_id === id && x.optionSignature === optionSignature);
   if(ex) ex.qty += 1;
-  else cart.push({ product_id: id, name: p.name, price: p.price, qty: 1, comment: "" });
+  else {
+    cart.push({
+      product_id: id,
+      name: p.name,
+      price: p.price,
+      qty: 1,
+      comment: "",
+      optionGroups,
+      optionSelections,
+      optionSignature
+    });
+  }
 
   renderCart();
 };
@@ -112,6 +156,17 @@ window.setComment = (idx, val) => {
   if(!cart[idx]) return;
   cart[idx].comment = val;
 };
+
+window.setItemOption = (idx, groupId, groupTitle, val) => {
+  if (!cart[idx]) return;
+  cart[idx].optionSelections = {
+    ...(cart[idx].optionSelections || {}),
+    [groupId]: val
+  };
+  cart[idx].optionSignature = getOptionSignature(cart[idx].optionSelections);
+  renderCart();
+};
+
 
 window.toggleComment = (idx) => {
   const el = document.getElementById(`commentWrap-${idx}`);
@@ -184,9 +239,28 @@ document.getElementById("orderBtn").addEventListener("click", async () => {
     items: cart.map(c => ({
       product_id: c.product_id,
       qty: c.qty,
-      comment: c.comment || ""
+      comment: c.comment || "",
+      options: (c.optionGroups || [])
+        .map(group => ({
+          group_id: group.group_id,
+          group_title: group.title,
+          value: c.optionSelections?.[group.group_id] || ""
+        }))
+        .filter(opt => opt.value)
     }))
   };
+
+  const invalidItem = cart.find(c =>
+    (c.optionGroups || []).some(group =>
+      group.required && !c.optionSelections?.[group.group_id]
+    )
+  );
+  if (invalidItem) {
+    msgEl.textContent = `Wybierz obowiązkowe opcje dla: ${invalidItem.name}`;
+    msgEl.className = "mini err mt12";
+    return;
+  }
+
 
   try {
     const res = await fetch(API + "/api/orders", {
@@ -211,14 +285,9 @@ document.getElementById("orderBtn").addEventListener("click", async () => {
   }
 });
 
-
-
-
-
-
-
-
 loadMenu();
+
+;
 
 const tabMenu = document.getElementById("tabMenu");
 const tabCart = document.getElementById("tabCart");
@@ -273,4 +342,3 @@ if (tabCart) {
 window.addEventListener("resize", handleMobileTabs);
 
 handleMobileTabs();
-
