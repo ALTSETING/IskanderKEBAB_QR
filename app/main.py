@@ -123,32 +123,73 @@ MENU_DB = [
     {"id": 77, "name": "Baklava", "price": 8.0, "category": "Desserts", "is_active": True},
 ]
 
+TABLE_CODES = {"A1","A2","A3","B1","B2"}
+
+
 ORDERS_DB: Dict[int, dict] = {}
 NEXT_ORDER_ID = 100
 
-# ✅ статуси як в admin.html
-OrderStatus = Literal["new", "cooking", "ready", "served", "canceled"]
 
-# ------------------ Models ------------------
+DEFAULT_KEBAB_OPTION_GROUPS = [
+    {
+        "group_id": "meat",
+        "title": "Jakie mięso chcesz?",
+        "required": True,
+        "max_select": 1,
+        "options": ["Kurczak", "Wołowina", "Mieszane"],
+    },
+    {
+        "group_id": "sauce",
+        "title": "Sosy do wyboru",
+        "required": True,
+        "max_select": 1,
+        "options": ["Sos lagodny", "Sos ostry", "Mieszane"],
+    },
+]
+
+PRODUCT_OPTION_GROUPS: Dict[int, List[dict]] = {
+    product["id"]: DEFAULT_KEBAB_OPTION_GROUPS
+    for product in MENU_DB
+    if product["category"] == "kebabs"
+}
+
+
+
+OrderStatus = Literal["new", "ready", "canceled"]
+
 class MenuItemOut(BaseModel):
     id: int
     name: str
     price: float
     category: str
     is_active: bool
+    option_groups: List[dict] = []
 
+class OrderItemOptionIn(BaseModel):
+    group_id: str
+    group_title: str
+    value: str
+
+    
 class OrderItemIn(BaseModel):
     product_id: int
     qty: int = Field(ge=1, le=20)
     comment: str = ""
+    options: List[OrderItemOptionIn] = []
+        
+
 
 class OrderCreateIn(BaseModel):
     table_code: str = Field(min_length=1, max_length=30)
     items: List[OrderItemIn] = Field(min_length=1)
-
+    
+    
+    
 class OrderCreateOut(BaseModel):
     order_id: int
-    status: OrderStatus
+    status: OrderStatus    
+    
+
 
 class KitchenOrderOut(BaseModel):
     order_id: int
@@ -156,86 +197,112 @@ class KitchenOrderOut(BaseModel):
     status: OrderStatus
     created_at: datetime
     items: List[dict]
-
+    
 class StatusUpdateIn(BaseModel):
     status: OrderStatus
+    
+    
 
-# ------------------ API ------------------
+
+
+#---------РОУТИ---------№
+
+
+
 @app.get("/api/menu", response_model=List[MenuItemOut])
 def get_menu(category: Optional[str] = Query(default=None)):
     items = [m for m in MENU_DB if m["is_active"]]
+
     if category:
         category_l = category.strip().lower()
         items = [m for m in items if m["category"].strip().lower() == category_l]
-    return items
+
+    return [
+        {**item, "option_groups": PRODUCT_OPTION_GROUPS.get(item["id"], [])}
+        for item in items
+    ]
 
 @app.post("/api/orders", response_model=OrderCreateOut)
 def create_order(payload: OrderCreateIn):
     global NEXT_ORDER_ID
-
+    
     menu_by_id = {m["id"]: m for m in MENU_DB}
     for it in payload.items:
         product = menu_by_id.get(it.product_id)
-        if (not product) or (not product["is_active"]):
-            raise HTTPException(status_code=400, detail=f"Product {it.product_id} unavailable")
+        if not product or not product["is_active"]:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Product {it.product_id} unavailable",
+            )
+        groups = PRODUCT_OPTION_GROUPS.get(it.product_id, [])
+        required_group_ids = {g["group_id"] for g in groups if g.get("required")}
+        selected_group_ids = {opt.group_id for opt in it.options}
+        missing = required_group_ids - selected_group_ids
+        if missing:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Product {it.product_id} is missing required options: {', '.join(sorted(missing))}",
+            )
 
     NEXT_ORDER_ID += 1
     order_id = NEXT_ORDER_ID
-
+    
     items_snapshot = []
     for it in payload.items:
         product = menu_by_id[it.product_id]
+        
+            
         items_snapshot.append({
             "product_id": it.product_id,
             "name": product["name"],
             "qty": it.qty,
             "price_at_time": product["price"],
             "comment": it.comment,
+            "options": [opt.dict() for opt in it.options],
         })
-
+    
+    
     ORDERS_DB[order_id] = {
         "order_id": order_id,
         "table_code": payload.table_code,
         "status": "new",
         "created_at": datetime.utcnow(),
         "items": items_snapshot,
+        
     }
-
+    
     return {"order_id": order_id, "status": "new"}
 
+
 @app.get("/api/kitchen/orders", response_model=List[KitchenOrderOut])
-def kitchen_orders(status: Optional[OrderStatus] = Query(default=None)):
+def kitchen_orders(status: OrderStatus | None = Query(default=None)):
     orders = list(ORDERS_DB.values())
+    # фільтр по статусу, якщо передали
     if status:
         orders = [o for o in orders if o["status"] == status]
+    # найновіші зверху
     orders.sort(key=lambda o: o["created_at"], reverse=True)
     return orders
+
 
 @app.patch("/api/orders/{order_id}/status")
 def update_status(order_id: int, payload: StatusUpdateIn):
     order = ORDERS_DB.get(order_id)
     if not order:
         raise HTTPException(status_code=404, detail="Order not found")
+
+    # (опційно) перевірка столика вже з order, а не з payload
+    if order.get("table_code") not in TABLE_CODES:
+        raise HTTPException(status_code=404, detail="Table not found")
+
     order["status"] = payload.status
     return {"ok": True, "order_id": order_id, "status": order["status"]}
 
 @app.delete("/api/orders/{order_id}")
 def delete_order(order_id: int):
-    order = ORDERS_DB.pop(order_id, None)
-    if not order:
+    if order_id not in ORDERS_DB:
         raise HTTPException(status_code=404, detail="Order not found")
-    return {"ok": True, "order_id": order_id}
 
+    del ORDERS_DB[order_id]
+    return {"ok": True, "deleted": order_id}
 
-# ------------------ Frontend ------------------
-if not FRONTEND_DIR.exists():
-    raise RuntimeError(f"FRONTEND_DIR not found: {FRONTEND_DIR}")
-
-# ✅ Важливо: монтуємо фронтенд як "сайт" з кореня "/"
-# Тоді index.html, styles.css, app.js працюють без змін.
-app.mount("/", StaticFiles(directory=FRONTEND_DIR, html=True), name="frontend")
-
-# (необов'язково) зручне посилання /admin -> /admin.html
-@app.get("/admin")
-def admin_redirect():
-    return RedirectResponse(url="/admin.html")
