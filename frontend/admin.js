@@ -7,7 +7,7 @@ const infoEl = document.getElementById("info");
 const refreshBtn = document.getElementById("refresh");
 const autoBtn = document.getElementById("auto");
 
-const API = window.location.hostname.endsWith("vercel.app")
+const API = window.__API_BASE__
   || (window.location.hostname.endsWith("vercel.app")
     ? "https://iskanderkebab-qr.onrender.com"
     : "");
