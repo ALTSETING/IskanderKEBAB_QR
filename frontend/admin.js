@@ -8,8 +8,9 @@ const refreshBtn = document.getElementById("refresh");
 const autoBtn = document.getElementById("auto");
 
 const API = window.location.hostname.endsWith("vercel.app")
-  ? "https://iskanderkebab-qr.onrender.com"
-  : ""; // якщо сайт і API на одному домені;
+  || (window.location.hostname.endsWith("vercel.app")
+    ? "https://iskanderkebab-qr.onrender.com"
+    : "");
 
 
 // ---- TABLE FILTERS ----
