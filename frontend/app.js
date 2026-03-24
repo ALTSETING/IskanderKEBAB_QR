@@ -1,5 +1,5 @@
 const API = window.location.hostname.endsWith("vercel.app")
-  ? "https://iskanderkebab-qr.onrender.com"
+   ? "https://iskanderkebab-qr.onrender.com"
   : ""; // якщо сайт і API на одному домені
 
 const menuListEl = document.getElementById("menuList");
