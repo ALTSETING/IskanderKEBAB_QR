@@ -27,6 +27,24 @@ app.add_middleware(
 BASE_DIR = Path(__file__).resolve().parent
 FRONTEND_DIR = BASE_DIR.parent / "frontend"
 
+app.mount("/static", StaticFiles(directory=FRONTEND_DIR), name="static")
+
+
+@app.get("/", include_in_schema=False)
+def root():
+    return RedirectResponse(url="/static/index.html", status_code=307)
+
+
+@app.get("/admin", include_in_schema=False)
+def admin_page():
+    return RedirectResponse(url="/static/admin.html", status_code=307)
+
+
+@app.get("/admin.html", include_in_schema=False)
+def admin_html_page():
+    return RedirectResponse(url="/static/admin.html", status_code=307)
+
+
 # ------------------ DB (поки в пам'яті) ------------------
 MENU_DB = [
     # --- STARTERS ---
