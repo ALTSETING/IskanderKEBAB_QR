@@ -78,7 +78,7 @@ function renderTablesFilter(){
   });
 }
 
-function login() {
+window.login = function login() {
   const user = document.getElementById("username").value.trim();
   const pass = document.getElementById("password").value;
 
