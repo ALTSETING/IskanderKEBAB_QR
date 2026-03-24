@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Admin — Orders</title>
 
-  <!-- ВАЖЛИВО: через /static щоб FastAPI точно віддав файл -->
-  <link rel="stylesheet" href="admin.css" />
+  
+  <link rel="stylesheet" href="/static/admin.css" />
 </head>
 
 <body>
@@ -59,12 +59,6 @@
     });
   </script>
 
-<script>
-  const btn = document.getElementById("ctaBtn");
 
-  btn.addEventListener("click", () => {
-    btn.classList.add("active");
-  });
-</script>
 </body>
 </html>
