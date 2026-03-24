@@ -7,10 +7,9 @@ const infoEl = document.getElementById("info");
 const refreshBtn = document.getElementById("refresh");
 const autoBtn = document.getElementById("auto");
 
-const API = window.__API_BASE__
-  || ((window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")
-    ? ""
-    : "https://iskanderkebab-qr.onrender.com");
+const API = window.location.hostname.endsWith("vercel.app")
+  ? "https://iskanderkebab-qr.onrender.com"
+  : ""; // якщо сайт і API на одному домені;
 
 
 // ---- TABLE FILTERS ----
