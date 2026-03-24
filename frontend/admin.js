@@ -25,7 +25,18 @@ const openComments = Object.create(null);
 const saveTimers = Object.create(null); // (поки не використовується)
 
 const CLICKED_KEY = "clickedCancelOrders";
-const clickedCancel = new Set(JSON.parse(localStorage.getItem(CLICKED_KEY) || "[]"));
+function readClickedCancel() {
+  try {
+    const raw = localStorage.getItem(CLICKED_KEY) || "[]";
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    localStorage.removeItem(CLICKED_KEY);
+    return [];
+  }
+}
+
+const clickedCancel = new Set(readClickedCancel());
 
 function saveClickedCancel() {
   localStorage.setItem(CLICKED_KEY, JSON.stringify([...clickedCancel]));
