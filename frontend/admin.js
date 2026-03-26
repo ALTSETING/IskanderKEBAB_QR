@@ -80,10 +80,14 @@ function renderTablesFilter(){
 }
 
 window.login = function login() {
-  const user = document.getElementById("username").value.trim();
-  const pass = document.getElementById("password").value;
-
+  const user = document.getElementById("username").value.trim().toLowerCase();
+  const pass = document.getElementById("password").value.trim();
+  
   if (user === "admin" && pass === "1234") {
+    if (loginMsgEl) {
+      loginMsgEl.textContent = "";
+      loginMsgEl.className = "mini msg";
+    }
     document.getElementById("loginBox").style.display = "none";
     document.getElementById("secret").style.display = "block";
 
@@ -91,7 +95,12 @@ window.login = function login() {
     if (timer) clearInterval(timer);
     timer = setInterval(load, 4000);
   } else {
-    setMsg("Невірний логін або пароль", false);
+    if (loginMsgEl) {
+      loginMsgEl.textContent = "Невірний логін або пароль (використай admin / 1234)";
+      loginMsgEl.className = "mini err msg";
+    } else {
+      setMsg("Невірний логін або пароль", false);
+    }
   }
 }
 
