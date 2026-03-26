@@ -3,6 +3,7 @@ const statusEl = document.getElementById("status");
 const tableSearchEl = document.getElementById("tableSearch");
 const msgEl = document.getElementById("msg");
 const infoEl = document.getElementById("info");
+const loginMsgEl = document.getElementById("loginMsg");
 
 const refreshBtn = document.getElementById("refresh");
 const autoBtn = document.getElementById("auto");
