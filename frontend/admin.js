@@ -8,6 +8,43 @@ const loginMsgEl = document.getElementById("loginMsg");
 const refreshBtn = document.getElementById("refresh");
 const autoBtn = document.getElementById("auto");
 
+const DEFAULT_ADMIN_CREDENTIALS = [
+  ["admin", "1234"],
+  ["admin", "admin"],
+];
+
+function normalizeLoginValue(v) {
+  return String(v ?? "")
+    .normalize("NFKC")
+    .replace(/[\u200B-\u200D\uFEFF]/g, "")
+    .trim()
+    .toLowerCase();
+}
+
+function normalizePasswordValue(v) {
+  return String(v ?? "")
+    .normalize("NFKC")
+    .replace(/[\u200B-\u200D\uFEFF]/g, "")
+    .trim();
+}
+
+function getAllowedCredentials() {
+  const fromWindow = window.__ADMIN_CREDENTIALS__;
+  if (!Array.isArray(fromWindow)) return DEFAULT_ADMIN_CREDENTIALS;
+  const normalized = fromWindow
+    .filter((pair) => Array.isArray(pair) && pair.length >= 2)
+    .map(([u, p]) => [normalizeLoginValue(u), normalizePasswordValue(p)])
+    .filter(([u, p]) => u && p);
+  return normalized.length ? normalized : DEFAULT_ADMIN_CREDENTIALS;
+}
+
+function canLogin(user, pass) {
+  const u = normalizeLoginValue(user);
+  const p = normalizePasswordValue(pass);
+  return getAllowedCredentials().some(([au, ap]) => au === u && ap === p);
+}
+
+
 const API = window.__API_BASE__
   || (window.location.hostname.endsWith("vercel.app")
     ? "https://iskanderkebab-qr.onrender.com"
