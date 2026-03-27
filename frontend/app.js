@@ -10,6 +10,7 @@ const tableCodeEl = document.getElementById("tableCode");
 const floatingCartBtnEl = document.getElementById("floatingCartBtn");
 const floatingCartCountEl = document.getElementById("floatingCartCount");
 const floatingCartPriceEl = document.getElementById("floatingCartPrice");
+const filtersEl = document.getElementById("filters");
 
 
 let menu = [];
@@ -122,10 +123,12 @@ function updateFloatingCartButton() {
 
   const count = cart.reduce((sum, item) => sum + item.qty, 0);
   const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+  const cartTabEl = document.getElementById("tabCart");
+  const isCartTabActive = window.innerWidth <= 768 && cartTabEl?.classList.contains("active");
 
   floatingCartCountEl.textContent = String(count);
   floatingCartPriceEl.textContent = `${money(total)} zł`;
-  floatingCartBtnEl.classList.toggle("show", count > 0);
+  floatingCartBtnEl.classList.toggle("show", count > 0 && !isCartTabActive);
 }
 
 
@@ -327,6 +330,9 @@ function setMobileTab(tab) {
     tabCart.classList.add("active");
     tabMenu.classList.remove("active");
   }
+
+  filtersEl?.classList.toggle("is-hidden-mobile", tab === "cart");
+  updateFloatingCartButton();
 }
 
 function handleMobileTabs() {
@@ -345,6 +351,8 @@ function handleMobileTabs() {
 
     tabMenu.classList.remove("active");
     tabCart.classList.remove("active");
+    filtersEl?.classList.remove("is-hidden-mobile");
+    updateFloatingCartButton();
   }
 }
 
