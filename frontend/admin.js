@@ -274,7 +274,7 @@ window.setStatus = async (orderId, status, btnEl) => {
     btnEl.classList.add("active");
   }
 
- const res = await fetch(API + `/api/orders/${orderId}/status`, {
+  const res = await fetch(API + `/api/orders/${orderId}/status`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ status })
