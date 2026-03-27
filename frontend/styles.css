@@ -377,6 +377,10 @@ label.mini {
     border-radius: 16px;
   }
 
+  #filters.is-hidden-mobile {
+    display: none;
+  }
+
   .btn3 {
     padding: 9px 16px;
     font-size: 13px;
