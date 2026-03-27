@@ -141,7 +141,7 @@ MENU_DB = [
     {"id": 77, "name": "Baklava", "price": 8.0, "category": "Desserts", "is_active": True},
 ]
 
-TABLE_CODES = {"1","2","3","4","5"."6","7","8","9","10"}
+TABLE_CODES = {"1","2","3","4","5","6","7","8","9","10"}
 
 
 ORDERS_DB: Dict[int, dict] = {}
