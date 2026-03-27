@@ -181,7 +181,7 @@ window.setItemComment = (orderId, itemIdx, val) => {
 async function load() {
   try {
     const st = statusEl.value;
-    const q = tableSearchEl.value.trim().toLowerCase();
+    const q = tableSearchEl?.value?.trim().toLowerCase() || "";
 
     const url = "/api/kitchen/orders" + (st ? `?status=${encodeURIComponent(st)}` : "");
     const res = await fetch(API + url);
@@ -357,9 +357,11 @@ statusEl.addEventListener("change", load);
 renderTablesFilter();
 
 let searchTimeout = null;
-tableSearchEl.addEventListener("input", () => {
-  clearTimeout(searchTimeout);
-  searchTimeout = setTimeout(load, 200);
-});
+if (tableSearchEl) {
+  tableSearchEl.addEventListener("input", () => {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(load, 200);
+  });
+}
 
 // NOTE: load() запускається після login()
