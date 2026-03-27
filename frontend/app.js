@@ -7,6 +7,9 @@ const cartListEl = document.getElementById("cartList");
 const totalEl = document.getElementById("total");
 const msgEl = document.getElementById("msg");
 const tableCodeEl = document.getElementById("tableCode");
+const floatingCartBtnEl = document.getElementById("floatingCartBtn");
+const floatingCartCountEl = document.getElementById("floatingCartCount");
+const floatingCartPriceEl = document.getElementById("floatingCartPrice");
 
 
 let menu = [];
@@ -50,6 +53,8 @@ function renderMenu() {
 }
 
 function renderCart(){
+  updateFloatingCartButton();
+   
   if(!cart.length){
     cartListEl.textContent = "Поки пусто";
     totalEl.textContent = "Total: 0 zł";
@@ -111,6 +116,18 @@ function renderCart(){
   const total = cart.reduce((s, c) => s + c.price * c.qty, 0);
   totalEl.textContent = `Total: ${money(total)} zł`;
 }
+
+function updateFloatingCartButton() {
+  if (!floatingCartBtnEl || !floatingCartCountEl || !floatingCartPriceEl) return;
+
+  const count = cart.reduce((sum, item) => sum + item.qty, 0);
+  const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+
+  floatingCartCountEl.textContent = String(count);
+  floatingCartPriceEl.textContent = `${money(total)} zł`;
+  floatingCartBtnEl.classList.toggle("show", count > 0);
+}
+
 
 // --- Глобальні (бо ти використовуєш onclick=...) ---
 window.addToCart = (id) => {
@@ -284,7 +301,7 @@ document.getElementById("orderBtn").addEventListener("click", async () => {
     msgEl.className = "mini err mt12";
   }
 });
-
+renderCart();
 loadMenu();
 
 ;
@@ -337,6 +354,13 @@ if (tabMenu) {
 
 if (tabCart) {
   tabCart.addEventListener("click", () => setMobileTab("cart"));
+}
+
+if (floatingCartBtnEl) {
+  floatingCartBtnEl.addEventListener("click", () => {
+    setMobileTab("cart");
+    cartSection?.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
 }
 
 window.addEventListener("resize", handleMobileTabs);
