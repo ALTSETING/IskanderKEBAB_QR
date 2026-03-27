@@ -52,7 +52,7 @@ const API = window.__API_BASE__
 
 
 // ---- TABLE FILTERS ----
-const TABLES = ["A1","A2","A3","B1","B2"]; // <-- твої столики
+const TABLES = ["1","2","3","4","5"."6","7","8","9","10"]; // <-- твої столики
 const selectedTables = new Set(); // пусто = показувати всі
 
 let timer = null;
