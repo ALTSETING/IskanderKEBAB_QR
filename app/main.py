@@ -64,22 +64,22 @@ MENU_DB = [
     {"id": 12, "name": "Sałatka halloumi", "price": 27.0, "category": "Sałatki", "is_active": True},
 
     # --- KEBABS / KANAPKI ---
-    {"id": 13, "name": "Kanapka lawasz mały", "price": 23.0, "category": "Kebaby", "is_active": True},
-    {"id": 14, "name": "Kanapka lawasz średni", "price": 26.0, "category": "Kebaby", "is_active": True},
-    {"id": 15, "name": "Kanapka lawasz duży", "price": 29.0, "category": "Kebaby", "is_active": True},
-    {"id": 16, "name": "Kanapka lawasz mega", "price": 35.0, "category": "Kebaby", "is_active": True},
+    {"id": 13, "name": "Kanapka lawasz mały", "price": 23.0, "category": "kebabs", "is_active": True},
+    {"id": 14, "name": "Kanapka lawasz średni", "price": 26.0, "category": "kebabs", "is_active": True},
+    {"id": 15, "name": "Kanapka lawasz duży", "price": 29.0, "category": "kebabs", "is_active": True},
+    {"id": 16, "name": "Kanapka lawasz mega", "price": 35.0, "category": "kebabs", "is_active": True},
 
-    {"id": 17, "name": "Kanapka standard gruby", "price": 28.0, "category": "Kebaby", "is_active": True},
-    {"id": 18, "name": "Kanapka duży gruby", "price": 32.0, "category": "Kebaby", "is_active": True},
-    {"id": 19, "name": "Kanapka giga", "price": 35.0, "category": "Kebaby", "is_active": True},
+    {"id": 17, "name": "Kanapka standard gruby", "price": 28.0, "category": "kebabs", "is_active": True},
+    {"id": 18, "name": "Kanapka duży gruby", "price": 32.0, "category": "kebabs", "is_active": True},
+    {"id": 19, "name": "Kanapka giga", "price": 35.0, "category": "kebabs", "is_active": True},
 
-    {"id": 20, "name": "Fryto kebab lawasz", "price": 30.0, "category": "Kebaby", "is_active": True},
-    {"id": 21, "name": "Fryto kebab gruby", "price": 32.0, "category": "Kebaby", "is_active": True},
-    {"id": 22, "name": "Grecki kebab a’la gyros", "price": 31.0, "category": "Kebaby", "is_active": True},
+    {"id": 20, "name": "Fryto kebab lawasz", "price": 30.0, "category": "kebabs", "is_active": True},
+    {"id": 21, "name": "Fryto kebab gruby", "price": 32.0, "category": "kebabs", "is_active": True},
+    {"id": 22, "name": "Grecki kebab a’la gyros", "price": 31.0, "category": "kebabs", "is_active": True},
 
-    {"id": 23, "name": "Falafel lawasz", "price": 26.0, "category": "Kebaby", "is_active": True},
-    {"id": 24, "name": "Falafel gruby", "price": 27.0, "category": "Kebaby", "is_active": True},
-    {"id": 25, "name": "Poka Berlin", "price": 36.0, "category": "Kebaby", "is_active": True},
+    {"id": 23, "name": "Falafel lawasz", "price": 26.0, "category": "kebabs", "is_active": True},
+    {"id": 24, "name": "Falafel gruby", "price": 27.0, "category": "kebabs", "is_active": True},
+    {"id": 25, "name": "Poka Berlin", "price": 36.0, "category": "kebabs", "is_active": True},
 
     # --- DANIA GŁÓWNE ---
     {"id": 26, "name": "Danie dnia", "price": 37.0, "category": "Dania główne", "is_active": True},
