@@ -63,10 +63,18 @@ function renderMenu() {
   }
 
   menuListEl.innerHTML = menu.map(m => `
-    <div class="item">
-     <div>
-        <div class="itemTitle">${esc(m.name)}</div>
-        <div class="mini">${esc(m.category)} · ${money(m.price)} zł</div>
+    <div class="itemMain">
+        <img
+          class="itemPhoto"
+          src="${esc(m.image_url || "/static/images/menu-placeholder.svg")}"
+          alt="${esc(m.name)}"
+          loading="lazy"
+          onerror="this.onerror=null;this.src='/static/images/menu-placeholder.svg';"
+        />
+        <div>
+          <div class="itemTitle">${esc(m.name)}</div>
+          <div class="mini">${esc(m.category)} · ${money(m.price)} zł</div>
+        </div>
       </div>
       <button class="btn" type="button" onclick="addToCart(${m.id})">Dodaj</button>
     </div>
