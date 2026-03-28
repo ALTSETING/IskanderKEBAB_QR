@@ -179,12 +179,18 @@ class OrderItemOptionIn(BaseModel):
     group_title: str
     value: str
 
-    
+
+class OrderItemAddonIn(BaseModel):
+    addon_id: int
+    name: str
+    price: float = Field(ge=0)
+
 class OrderItemIn(BaseModel):
     product_id: int
     qty: int = Field(ge=1, le=20)
     comment: str = ""
     options: List[OrderItemOptionIn] = []
+    addons: List[OrderItemAddonIn] = []
         
 
 
@@ -268,6 +274,7 @@ def create_order(payload: OrderCreateIn):
             "price_at_time": product["price"],
             "comment": it.comment,
             "options": [opt.dict() for opt in it.options],
+            "addons": [addon.dict() for addon in it.addons],
         })
     
     
