@@ -249,10 +249,17 @@ async function load() {
 
           <div class="items">
             ${(o.items || []).map((i, itemIdx) => {
+              const options = Array.isArray(i.options) ? i.options : [];
+              const addons = Array.isArray(i.addons) ? i.addons : [];
+              const optionsHtml = options.length
+                ? `<span class="tagComment">Wybrane: ${options.map(opt => `${esc(opt.group_title)}: ${esc(opt.value)}`).join(", ")}</span>`
+                : "";
               return `
                 <div class="mini itemLine">
                   • <b>${esc(i.name)}</b> x${esc(i.qty)} (${esc(i.price_at_time)} zł)
                   ${i.comment ? `<span class="tagComment">📝 ${esc(i.comment)}</span>` : ""}
+                  ${addons.length ? `<span class="tagComment">➕ ${addons.map(a => `${esc(a.name)} (${esc(a.price)} zł)`).join(", ")}</span>` : ""}
+                  ${optionsHtml}
                 </div>
               `;
             }).join("")}
@@ -365,3 +372,4 @@ if (tableSearchEl) {
 }
 
 // NOTE: load() запускається після login()
+
