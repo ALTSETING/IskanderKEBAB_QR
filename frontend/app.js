@@ -56,31 +56,6 @@ function esc(s){
     .replaceAll("'","&#039;");
 }
 
-function getImageKeywords(item) {
-  const name = String(item?.name || "").toLowerCase();
-  const category = String(item?.category || "").toLowerCase();
-  const text = `${name} ${category}`;
-
-  if (text.includes("zupa")) return "soup";
-  if (text.includes("sałat") || text.includes("salat")) return "salad";
-  if (text.includes("falafel")) return "falafel";
-  if (text.includes("hummus")) return "hummus";
-  if (text.includes("baklawa")) return "baklava dessert";
-  if (text.includes("kawa") || text.includes("espresso") || text.includes("cappuccino") || text.includes("latte") || text.includes("herbata")) return "coffee tea";
-  if (text.includes("pepsi") || text.includes("7up") || text.includes("mirinda") || text.includes("lipton") || text.includes("ayran") || text.includes("mountain dew") || text.includes("nektar")) return "cold drink";
-  if (text.includes("grill") || text.includes("adana") || text.includes("żeberka") || text.includes("jagnięcina") || text.includes("skrzydełka")) return "grilled kebab";
-  if (text.includes("kebab") || text.includes("shawarma") || text.includes("iskander") || text.includes("doner") || text.includes("lawasz") || text.includes("gyros")) return "kebab wrap";
-  return "middle eastern food";
-}
-
-function getDishImage(item) {
-  const keywords = encodeURIComponent(getImageKeywords(item));
-  const lock = Number(item?.id || 1);
-  return `https://loremflickr.com/640/420/${keywords}?lock=${lock}`;
-}
-
-
-
 function renderMenu() {
   if (!menu.length) {
     menuListEl.textContent = "Menu jest puste.";
@@ -89,15 +64,7 @@ function renderMenu() {
 
   menuListEl.innerHTML = menu.map(m => `
     <div class="item">
-     <img
-        class="itemPhoto"
-        src="${getDishImage(m)}"
-        alt="${esc(m.name)}"
-        loading="lazy"
-        referrerpolicy="no-referrer"
-        onerror="this.onerror=null;this.src='${getDishImageFallback(m)}';"
-      />
-      <div class="itemBody">
+     <div>
         <div class="itemTitle">${esc(m.name)}</div>
         <div class="mini">${esc(m.category)} · ${money(m.price)} zł</div>
       </div>
