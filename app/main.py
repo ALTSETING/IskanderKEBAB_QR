@@ -48,97 +48,88 @@ def admin_html_page():
 # ------------------ DB (поки в пам'яті) ------------------
 MENU_DB = [
     # --- STARTERS ---
-    {"id": 1, "name": "Hummus", "price": 23.0, "category": "Starters", "is_active": True},
-    {"id": 2, "name": "Mutobal", "price": 23.0, "category": "Starters", "is_active": True},
-    {"id": 3, "name": "Hummus with meat", "price": 30.0, "category": "Starters", "is_active": True},
-    {"id": 4, "name": "Soup", "price": 18.0, "category": "Starters", "is_active": True},
-    {"id": 5, "name": "Tzatziki", "price": 18.0, "category": "Starters", "is_active": True},
-    {"id": 6, "name": "Tzatziki with meat", "price": 28.0, "category": "Starters", "is_active": True},
-    {"id": 7, "name": "Shakshuka with egg", "price": 28.0, "category": "Starters", "is_active": True},
+    {"id": 1, "name": "Hummus", "price": 20.0, "category": "Przystawki", "is_active": True},
+    {"id": 2, "name": "Mutobal", "price": 20.0, "category": "Przystawki", "is_active": True},
+    {"id": 3, "name": "Hummus z mięsem", "price": 25.0, "category": "Przystawki", "is_active": True},
+    {"id": 4, "name": "Zupa", "price": 15.0, "category": "Przystawki", "is_active": True},
+    {"id": 5, "name": "Tzatziki", "price": 18.0, "category": "Przystawki", "is_active": True},
+    {"id": 6, "name": "Tzatziki z mięsem", "price": 25.0, "category": "Przystawki", "is_active": True},
+    {"id": 7, "name": "Szakszuka z jajkiem", "price": 28.0, "category": "Przystawki", "is_active": True},
 
     # --- SALADS ---
-    {"id": 8, "name": "Arabic salad", "price": 30.0, "category": "Salads", "is_active": True},
-    {"id": 9, "name": "Greek salad", "price": 30.0, "category": "Salads", "is_active": True},
-    {"id": 10, "name": "Turkish salad", "price": 30.0, "category": "Salads", "is_active": True},
-    {"id": 11, "name": "Salad with meat", "price": 38.0, "category": "Salads", "is_active": True},
-    {"id": 12, "name": "Halloumi salad", "price": 35.0, "category": "Salads", "is_active": True},
+    {"id": 8, "name": "Sałatka arabska", "price": 25.0, "category": "Sałatki", "is_active": True},
+    {"id": 9, "name": "Sałatka grecka", "price": 27.0, "category": "Sałatki", "is_active": True},
+    {"id": 10, "name": "Sałatka turecka", "price": 25.0, "category": "Sałatki", "is_active": True},
+    {"id": 11, "name": "Sałatka z mięsem", "price": 30.0, "category": "Sałatki", "is_active": True},
+    {"id": 12, "name": "Sałatka halloumi", "price": 27.0, "category": "Sałatki", "is_active": True},
 
-    # --- SANDWICHES ---
-    {"id": 13, "name": "Lawasz small", "price": 25.0, "category": "kebabs", "is_active": True},
-    {"id": 14, "name": "Lawasz medium", "price": 28.0, "category": "kebabs", "is_active": True},
-    {"id": 15, "name": "Lawasz large", "price": 31.0, "category": "kebabs", "is_active": True},
-    {"id": 16, "name": "Lawasz mega", "price": 40.0, "category": "kebabs", "is_active": True},
-    {"id": 17, "name": "Standard thick", "price": 30.0, "category": "kebabs", "is_active": True},
-    {"id": 18, "name": "Large thick", "price": 35.0, "category": "kebabs", "is_active": True},
-    {"id": 19, "name": "Giga", "price": 45.0, "category": "kebabs", "is_active": True},
-    {"id": 20, "name": "Fryto kebab lawasz", "price": 33.0, "category": "kebabs", "is_active": True},
-    {"id": 21, "name": "Fryto kebab thick", "price": 36.0, "category": "kebabs", "is_active": True},
-    {"id": 22, "name": "Greek kebab (gyros)", "price": 38.0, "category": "kebabs", "is_active": True},
-    {"id": 23, "name": "Falafel lawasz", "price": 25.0, "category": "kebabs", "is_active": True},
-    {"id": 24, "name": "Falafel thick", "price": 28.0, "category": "kebabs", "is_active": True},
-    {"id": 25, "name": "Poka Berlin", "price": 45.0, "category": "kebabs", "is_active": True},
+    # --- KEBABS / KANAPKI ---
+    {"id": 13, "name": "Kanapka lawasz mały", "price": 23.0, "category": "Kebaby", "is_active": True},
+    {"id": 14, "name": "Kanapka lawasz średni", "price": 26.0, "category": "Kebaby", "is_active": True},
+    {"id": 15, "name": "Kanapka lawasz duży", "price": 29.0, "category": "Kebaby", "is_active": True},
+    {"id": 16, "name": "Kanapka lawasz mega", "price": 35.0, "category": "Kebaby", "is_active": True},
 
-    # --- MAIN DISHES ---
-    {"id": 26, "name": "Dish of the day", "price": 37.0, "category": "kebabs", "is_active": True},
-    {"id": 27, "name": "Iskander premium", "price": 45.0, "category": "kebabs", "is_active": True},
-    {"id": 28, "name": "Special Doner", "price": 45.0, "category": "kebabs", "is_active": True},
-    {"id": 29, "name": "Kebab plate small", "price": 35.0, "category": "kebabs", "is_active": True},
-    {"id": 30, "name": "Kebab plate large", "price": 40.0, "category": "kebabs", "is_active": True},
-    {"id": 31, "name": "Kebab box", "price": 30.0, "category": "kebabs", "is_active": True},
-    {"id": 32, "name": "Falafel plate", "price": 35.0, "category": "kebabs", "is_active": True},
-    {"id": 33, "name": "Shawarma", "price": 46.0, "category": "kebabs", "is_active": True},
-    {"id": 34, "name": "Kapsalon", "price": 36.0, "category": "kebabs", "is_active": True},
-    {"id": 35, "name": "Kids set", "price": 35.0, "category": "kebabs", "is_active": True},
+    {"id": 17, "name": "Kanapka standard gruby", "price": 28.0, "category": "Kebaby", "is_active": True},
+    {"id": 18, "name": "Kanapka duży gruby", "price": 32.0, "category": "Kebaby", "is_active": True},
+    {"id": 19, "name": "Kanapka giga", "price": 35.0, "category": "Kebaby", "is_active": True},
+
+    {"id": 20, "name": "Fryto kebab lawasz", "price": 30.0, "category": "Kebaby", "is_active": True},
+    {"id": 21, "name": "Fryto kebab gruby", "price": 32.0, "category": "Kebaby", "is_active": True},
+    {"id": 22, "name": "Grecki kebab a’la gyros", "price": 31.0, "category": "Kebaby", "is_active": True},
+
+    {"id": 23, "name": "Falafel lawasz", "price": 26.0, "category": "Kebaby", "is_active": True},
+    {"id": 24, "name": "Falafel gruby", "price": 27.0, "category": "Kebaby", "is_active": True},
+    {"id": 25, "name": "Poka Berlin", "price": 36.0, "category": "Kebaby", "is_active": True},
+
+    # --- DANIA GŁÓWNE ---
+    {"id": 26, "name": "Danie dnia", "price": 37.0, "category": "Dania główne", "is_active": True},
+    {"id": 27, "name": "Iskander premium", "price": 45.0, "category": "Dania główne", "is_active": True},
+    {"id": 28, "name": "Special Doner", "price": 38.0, "category": "Dania główne", "is_active": True},
+
+    {"id": 29, "name": "Talerz kebab mały", "price": 32.0, "category": "Dania główne", "is_active": True},
+    {"id": 30, "name": "Talerz kebab duży", "price": 36.0, "category": "Dania główne", "is_active": True},
+    {"id": 31, "name": "Kebab Box", "price": 28.0, "category": "Dania główne", "is_active": True},
+
+    {"id": 32, "name": "Talerz falafel z hummusem", "price": 31.0, "category": "Dania główne", "is_active": True},
+    {"id": 33, "name": "Shawarma", "price": 41.0, "category": "Dania główne", "is_active": True},
+    {"id": 34, "name": "Kapsalon", "price": 33.0, "category": "Dania główne", "is_active": True},
+    {"id": 35, "name": "Zestaw dla dzieci", "price": 31.0, "category": "Dania główne", "is_active": True},
 
     # --- GRILL ---
-    {"id": 36, "name": "Adana", "price": 65.0, "category": "Grill", "is_active": True},
-    {"id": 37, "name": "Ribs", "price": 75.0, "category": "Grill", "is_active": True},
-    {"id": 38, "name": "Lamb", "price": 70.0, "category": "Grill", "is_active": True},
-    {"id": 39, "name": "Beef tenderloin", "price": 100.0, "category": "Grill", "is_active": True},
-    {"id": 40, "name": "Mix grill for 2", "price": 135.0, "category": "Grill", "is_active": True},
-    {"id": 41, "name": "Mix grill for 4", "price": 250.0, "category": "Grill", "is_active": True},
-    {"id": 42, "name": "Shish tawook", "price": 55.0, "category": "Grill", "is_active": True},
-    {"id": 43, "name": "Chicken wings grilled", "price": 50.0, "category": "Grill", "is_active": True},
+    {"id": 36, "name": "Adana", "price": 60.0, "category": "Grill", "is_active": True},
+    {"id": 37, "name": "Żeberka", "price": 70.0, "category": "Grill", "is_active": True},
+    {"id": 38, "name": "Jagnięcina", "price": 70.0, "category": "Grill", "is_active": True},
+    {"id": 39, "name": "Polędwiczki wołowe", "price": 80.0, "category": "Grill", "is_active": True},
+    {"id": 40, "name": "Mix grill dla 2 osób", "price": 130.0, "category": "Grill", "is_active": True},
+    {"id": 41, "name": "Mix grill dla 4 osób", "price": 240.0, "category": "Grill", "is_active": True},
+    {"id": 42, "name": "Shish tawook", "price": 52.0, "category": "Grill", "is_active": True},
+    {"id": 43, "name": "Skrzydełka z kurczaka grillowane", "price": 55.0, "category": "Grill", "is_active": True},
 
-    # --- SIDES ---
-    {"id": 44, "name": "Feta cheese", "price": 4.0, "category": "Sides", "is_active": True},
-    {"id": 45, "name": "Turkish cheese", "price": 5.0, "category": "Sides", "is_active": True},
-    {"id": 46, "name": "Halloumi cheese", "price": 5.0, "category": "Sides", "is_active": True},
-    {"id": 47, "name": "Cheese sauce", "price": 3.0, "category": "Sides", "is_active": True},
-    {"id": 48, "name": "Mozzarella", "price": 4.0, "category": "Sides", "is_active": True},
-    {"id": 49, "name": "Grilled vegetables", "price": 8.0, "category": "Sides", "is_active": True},
-    {"id": 50, "name": "Sauce", "price": 4.0, "category": "Sides", "is_active": True},
-    {"id": 51, "name": "Garlic paste", "price": 5.0, "category": "Sides", "is_active": True},
-    {"id": 52, "name": "Spicy paste", "price": 5.0, "category": "Sides", "is_active": True},
-    {"id": 53, "name": "Tzatziki sauce", "price": 5.0, "category": "Sides", "is_active": True},
-    {"id": 54, "name": "Sweet pepper", "price": 5.0, "category": "Sides", "is_active": True},
-    {"id": 55, "name": "Hot pepper", "price": 5.0, "category": "Sides", "is_active": True},
-    {"id": 56, "name": "Eggplant", "price": 4.0, "category": "Sides", "is_active": True},
-    {"id": 57, "name": "Jalapeno", "price": 3.0, "category": "Sides", "is_active": True},
-    {"id": 58, "name": "Olives", "price": 4.0, "category": "Sides", "is_active": True},
-    {"id": 59, "name": "Fries", "price": 14.0, "category": "Sides", "is_active": True},
-    {"id": 60, "name": "Roasted potatoes", "price": 15.0, "category": "Sides", "is_active": True},
+    # --- NAPOJE ZIMNE ---
+    {"id": 44, "name": "Ayran", "price": 8.0, "category": "Napoje zimne", "is_active": True},
 
-    # --- DRINKS ---
-    {"id": 61, "name": "Ayran", "price": 8.0, "category": "Drinks", "is_active": True},
-    {"id": 62, "name": "Pepsi can", "price": 8.0, "category": "Drinks", "is_active": True},
-    {"id": 63, "name": "Pepsi zero can", "price": 8.0, "category": "Drinks", "is_active": True},
-    {"id": 64, "name": "Pepsi bottle", "price": 8.0, "category": "Drinks", "is_active": True},
-    {"id": 65, "name": "Pepsi zero bottle", "price": 8.0, "category": "Drinks", "is_active": True},
-    {"id": 66, "name": "Mirinda", "price": 8.0, "category": "Drinks", "is_active": True},
-    {"id": 67, "name": "7up", "price": 8.0, "category": "Drinks", "is_active": True},
-    {"id": 68, "name": "Lipton can", "price": 8.0, "category": "Drinks", "is_active": True},
-    {"id": 69, "name": "Lipton 0.5", "price": 10.0, "category": "Drinks", "is_active": True},
-    {"id": 70, "name": "Mountain Dew", "price": 10.0, "category": "Drinks", "is_active": True},
-    {"id": 71, "name": "Juice nectar", "price": 8.0, "category": "Drinks", "is_active": True},
-    {"id": 72, "name": "Espresso", "price": 10.0, "category": "Drinks", "is_active": True},
-    {"id": 73, "name": "Black coffee", "price": 8.0, "category": "Drinks", "is_active": True},
-    {"id": 74, "name": "Cappuccino", "price": 10.0, "category": "Drinks", "is_active": True},
-    {"id": 75, "name": "Caffe latte", "price": 10.0, "category": "Drinks", "is_active": True},
-    {"id": 76, "name": "Arabic tea", "price": 8.0, "category": "Drinks", "is_active": True},
+    {"id": 45, "name": "Pepsi w puszce", "price": 8.0, "category": "Napoje zimne", "is_active": True},
+    {"id": 46, "name": "Pepsi zero w puszce", "price": 8.0, "category": "Napoje zimne", "is_active": True},
+    {"id": 47, "name": "Pepsi w butelce", "price": 8.0, "category": "Napoje zimne", "is_active": True},
+    {"id": 48, "name": "Pepsi zero w butelce", "price": 8.0, "category": "Napoje zimne", "is_active": True},
 
-    # --- DESSERTS ---
-    {"id": 77, "name": "Baklava", "price": 8.0, "category": "Desserts", "is_active": True},
+    {"id": 49, "name": "Mirinda w puszce", "price": 8.0, "category": "Napoje zimne", "is_active": True},
+    {"id": 50, "name": "7up w puszce", "price": 8.0, "category": "Napoje zimne", "is_active": True},
+    {"id": 51, "name": "Lipton w puszce", "price": 8.0, "category": "Napoje zimne", "is_active": True},
+
+    {"id": 52, "name": "Lipton 0.5", "price": 10.0, "category": "Napoje zimne", "is_active": True},
+    {"id": 53, "name": "Mountain Dew", "price": 10.0, "category": "Napoje zimne", "is_active": True},
+    {"id": 54, "name": "Nektar owocowy", "price": 8.0, "category": "Napoje zimne", "is_active": True},
+
+    # --- NAPOJE CIEPŁE ---
+    {"id": 55, "name": "Espresso", "price": 8.0, "category": "Napoje ciepłe", "is_active": True},
+    {"id": 56, "name": "Kawa czarna", "price": 10.0, "category": "Napoje ciepłe", "is_active": True},
+    {"id": 57, "name": "Cappuccino", "price": 14.0, "category": "Napoje ciepłe", "is_active": True},
+    {"id": 58, "name": "Caffe latte", "price": 15.0, "category": "Napoje ciepłe", "is_active": True},
+    {"id": 59, "name": "Herbata arabska", "price": 8.0, "category": "Napoje ciepłe", "is_active": True},
+
+    # --- DESERY ---
+    {"id": 60, "name": "Baklawa", "price": 10.0, "category": "Desery", "is_active": True},
 ]
 
 TABLE_CODES = {"1","2","3","4","5","6","7","8","9","10"}
