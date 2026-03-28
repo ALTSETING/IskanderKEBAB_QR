@@ -77,18 +77,18 @@ MENU_DB = [
     {"id": 21, "name": "Fryto kebab gruby", "price": 32.0, "category": "kebabs", "is_active": True},
     {"id": 22, "name": "Grecki kebab a’la gyros", "price": 31.0, "category": "kebabs", "is_active": True},
 
-    {"id": 23, "name": "Falafel lawasz", "price": 26.0, "category": "kebabs", "is_active": True},
-    {"id": 24, "name": "Falafel gruby", "price": 27.0, "category": "kebabs", "is_active": True},
-    {"id": 25, "name": "Poka Berlin", "price": 36.0, "category": "kebabs", "is_active": True},
+    {"id": 23, "name": "Talerz kebab mały", "price": 32.0, "category": "Dania główne", "is_active": True},
+    {"id": 24, "name": "Talerz kebab duży", "price": 36.0, "category": "Dania główne", "is_active": True},
+    {"id": 25, "name": "Kebab Box", "price": 28.0, "category": "Dania główne", "is_active": True},
+
+    {"id": 26, "name": "Falafel lawasz", "price": 26.0, "category": "kebabs", "is_active": True},
+    {"id": 27, "name": "Falafel gruby", "price": 27.0, "category": "kebabs", "is_active": True},
+    {"id": 28, "name": "Poka Berlin", "price": 36.0, "category": "kebabs", "is_active": True},
 
     # --- DANIA GŁÓWNE ---
-    {"id": 26, "name": "Danie dnia", "price": 37.0, "category": "Dania główne", "is_active": True},
-    {"id": 27, "name": "Iskander premium", "price": 45.0, "category": "Dania główne", "is_active": True},
-    {"id": 28, "name": "Special Doner", "price": 38.0, "category": "Dania główne", "is_active": True},
-
-    {"id": 29, "name": "Talerz kebab mały", "price": 32.0, "category": "Dania główne", "is_active": True},
-    {"id": 30, "name": "Talerz kebab duży", "price": 36.0, "category": "Dania główne", "is_active": True},
-    {"id": 31, "name": "Kebab Box", "price": 28.0, "category": "Dania główne", "is_active": True},
+    {"id": 29, "name": "Danie dnia", "price": 37.0, "category": "Dania główne", "is_active": True},
+    {"id": 30, "name": "Iskander premium", "price": 45.0, "category": "Dania główne", "is_active": True},
+    {"id": 31, "name": "Special Doner", "price": 38.0, "category": "Dania główne", "is_active": True},
 
     {"id": 32, "name": "Talerz falafel z hummusem", "price": 31.0, "category": "Dania główne", "is_active": True},
     {"id": 33, "name": "Shawarma", "price": 41.0, "category": "Dania główne", "is_active": True},
