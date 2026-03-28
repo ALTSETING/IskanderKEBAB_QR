@@ -16,6 +16,26 @@ const filtersEl = document.getElementById("filters");
 let menu = [];
 let cart = []; // [{product_id, name, price, qty, comment}]
 
+const ADDONS = [
+  { id: 44, name: "Feta cheese", price: 4.0 },
+  { id: 45, name: "Turkish cheese", price: 5.0 },
+  { id: 46, name: "Halloumi cheese", price: 5.0 },
+  { id: 47, name: "Cheese sauce", price: 3.0 },
+  { id: 48, name: "Mozzarella", price: 4.0 },
+  { id: 49, name: "Grilled vegetables", price: 8.0 },
+  { id: 50, name: "Sauce", price: 4.0 },
+  { id: 51, name: "Garlic paste", price: 5.0 },
+  { id: 52, name: "Spicy paste", price: 5.0 },
+  { id: 53, name: "Tzatziki sauce", price: 5.0 },
+  { id: 54, name: "Sweet pepper", price: 5.0 },
+  { id: 55, name: "Hot pepper", price: 5.0 },
+  { id: 56, name: "Eggplant", price: 4.0 },
+  { id: 57, name: "Jalapeno", price: 3.0 },
+  { id: 58, name: "Olives", price: 4.0 },
+  { id: 59, name: "Fries", price: 14.0 },
+  { id: 60, name: "Roasted potatoes", price: 15.0 }
+];
+
 function getOptionSignature(optionSelections = {}) {
   return Object.keys(optionSelections)
     .sort()
@@ -55,12 +75,15 @@ function renderMenu() {
 
 function renderCart(){
   updateFloatingCartButton();
-   
   if(!cart.length){
     cartListEl.textContent = "Поки пусто";
     totalEl.textContent = "Total: 0 zł";
     return;
   }
+  const calcItemTotal = (item) => {
+    const addonsTotal = (item.addons || []).reduce((sum, addon) => sum + addon.price, 0);
+    return (item.price + addonsTotal) * item.qty;
+  };
 
   cartListEl.innerHTML = cart.map((c, idx) => `
     <div class="item" style="align-items:flex-start;">
@@ -91,12 +114,16 @@ function renderCart(){
         `).join("")}
 
         <div class="commentBlock">
-          <button class="btnComment" type="button"
-                  onclick="toggleComment(${idx})">
-            Komentarz
-          </button>
+          <div class="commentActions">
+            <button class="btnComment" type="button" onclick="toggleComment(${idx})">
+              Komentarz
+            </button>
+            <button class="btnComment" type="button" onclick="toggleAddons(${idx})">
+              Dodatki
+            </button>
+          </div>
 
-          <div id="commentWrap-${idx}" class="commentWrap">
+          <div id="commentWrap-${idx}" class="commentWrap${c.commentOpen ? " show" : ""}">
             <input
             class="commentInput"
             placeholder="Komentarz (np.: bez cebuli / sos osobno)"
@@ -104,6 +131,23 @@ function renderCart(){
             oninput="setComment(${idx}, this.value)"
           />
           </div>
+          <div id="addonsWrap-${idx}" class="commentWrap addonsWrap${c.addonsOpen ? " show" : ""}">
+            ${(ADDONS).map(addon => `
+              <label class="addonChoice">
+                <span>${esc(addon.name)} · ${money(addon.price)} zł</span>
+                <input
+                  type="checkbox"
+                  ${c.addons?.some(a => a.addon_id === addon.id) ? "checked" : ""}
+                  onchange="toggleAddon(${idx}, ${addon.id})"
+                />
+              </label>
+            `).join("")}
+          </div>
+          ${c.addons?.length ? `
+            <div class="mini mt10">
+              Dodatki: ${c.addons.map(a => `${esc(a.name)} (${money(a.price)} zł)`).join(", ")}
+            </div>
+          ` : ""}
         </div>
       </div>
 
@@ -114,7 +158,7 @@ function renderCart(){
     </div>
   `).join("");
 
-  const total = cart.reduce((s, c) => s + c.price * c.qty, 0);
+  const total = cart.reduce((sum, item) => sum + calcItemTotal(item), 0);
   totalEl.textContent = `Total: ${money(total)} zł`;
 }
 
@@ -122,7 +166,10 @@ function updateFloatingCartButton() {
   if (!floatingCartBtnEl || !floatingCartCountEl || !floatingCartPriceEl) return;
 
   const count = cart.reduce((sum, item) => sum + item.qty, 0);
-  const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+  const total = cart.reduce((sum, item) => {
+    const addonsTotal = (item.addons || []).reduce((aSum, addon) => aSum + addon.price, 0);
+    return sum + (item.price + addonsTotal) * item.qty;
+  }, 0);
   const cartTabEl = document.getElementById("tabCart");
   const isCartTabActive = window.innerWidth <= 768 && cartTabEl?.classList.contains("active");
 
@@ -150,9 +197,12 @@ window.addToCart = (id) => {
       price: p.price,
       qty: 1,
       comment: "",
+      commentOpen: false,
       optionGroups,
       optionSelections,
-      optionSignature
+      optionSignature,
+      addons: [],
+      addonsOpen: false
     });
   }
 
@@ -189,15 +239,45 @@ window.setItemOption = (idx, groupId, groupTitle, val) => {
 
 
 window.toggleComment = (idx) => {
+  if (!cart[idx]) return;
+  cart[idx].commentOpen = !cart[idx].commentOpen;
   const el = document.getElementById(`commentWrap-${idx}`);
   if (!el) return;
-
-  const isOpen = el.classList.toggle("show");
+  const isOpen = cart[idx].commentOpen;
+  el.classList.toggle("show", isOpen);
 
   if (isOpen) {
     el.querySelector("input")?.focus();
   }
 };
+
+window.toggleAddons = (idx) => {
+  if (!cart[idx]) return;
+  cart[idx].addonsOpen = !cart[idx].addonsOpen;
+  const el = document.getElementById(`addonsWrap-${idx}`);
+  if (!el) return;
+  el.classList.toggle("show", cart[idx].addonsOpen);
+};
+
+window.toggleAddon = (idx, addonId) => {
+  if (!cart[idx]) return;
+  if (!Array.isArray(cart[idx].addons)) cart[idx].addons = [];
+  const addon = ADDONS.find(a => a.id === addonId);
+  if (!addon) return;
+
+  const hasAddon = cart[idx].addons.some(a => a.addon_id === addonId);
+  if (hasAddon) {
+    cart[idx].addons = cart[idx].addons.filter(a => a.addon_id !== addonId);
+  } else {
+    cart[idx].addons.push({
+      addon_id: addon.id,
+      name: addon.name,
+      price: addon.price
+    });
+  }
+  renderCart();
+};
+
 
 document.getElementById("clearBtn").addEventListener("click", () => {
   cart = [];
@@ -260,6 +340,7 @@ document.getElementById("orderBtn").addEventListener("click", async () => {
       product_id: c.product_id,
       qty: c.qty,
       comment: c.comment || "",
+      addons: c.addons || [],
       options: (c.optionGroups || [])
         .map(group => ({
           group_id: group.group_id,
