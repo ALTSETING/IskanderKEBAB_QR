@@ -252,7 +252,11 @@ def get_menu(category: Optional[str] = Query(default=None)):
         items = [m for m in items if m["category"].strip().lower() == category_l]
 
     return [
-        {**item, "option_groups": PRODUCT_OPTION_GROUPS.get(item["id"], [])}
+        {
+            **item,
+            "image_url": normalize_menu_image_url(item),
+            "option_groups": PRODUCT_OPTION_GROUPS.get(item["id"], []),
+        }
         for item in items
     ]
 
@@ -341,3 +345,4 @@ def delete_order(order_id: int):
     del ORDERS_DB[order_id]
     return {"ok": True, "deleted": order_id}
 
+app.mount("/", StaticFiles(directory=FRONTEND_DIR, html=True), name="frontend")
