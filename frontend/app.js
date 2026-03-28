@@ -32,7 +32,7 @@ const ADDONS = [
   { id: 56, name: "Eggplant", price: 4.0 },
   { id: 57, name: "Jalapeno", price: 3.0 },
   { id: 58, name: "Olives", price: 4.0 },
-  { id: 59, name: "Fries", price: 14.0 },
+  { id: 59, name: "Fries", price: 12.0 },
   { id: 60, name: "Roasted potatoes", price: 15.0 }
 ];
 
