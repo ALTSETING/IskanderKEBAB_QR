@@ -77,9 +77,9 @@ MENU_DB = [
     {"id": 21, "name": "Fryto kebab gruby", "price": 32.0, "category": "kebabs", "is_active": True},
     {"id": 22, "name": "Grecki kebab a’la gyros", "price": 31.0, "category": "kebabs", "is_active": True},
 
-    {"id": 23, "name": "Talerz kebab mały", "price": 32.0, "category": "Dania główne", "is_active": True},
-    {"id": 24, "name": "Talerz kebab duży", "price": 36.0, "category": "Dania główne", "is_active": True},
-    {"id": 25, "name": "Kebab Box", "price": 28.0, "category": "Dania główne", "is_active": True},
+    {"id": 23, "name": "Talerz kebab mały", "price": 32.0, "category": "kebabs", "is_active": True},
+    {"id": 24, "name": "Talerz kebab duży", "price": 36.0, "category": "kebabs", "is_active": True},
+    {"id": 25, "name": "Kebab Box", "price": 28.0, "category": "kebabs", "is_active": True},
 
     {"id": 26, "name": "Falafel lawasz", "price": 26.0, "category": "kebabs", "is_active": True},
     {"id": 27, "name": "Falafel gruby", "price": 27.0, "category": "kebabs", "is_active": True},
