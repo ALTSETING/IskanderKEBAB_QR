@@ -65,36 +65,36 @@ MENU_DB = [
     {"id": 12, "name": "Sałatka halloumi", "price": 27.0, "category": "Sałatki", "is_active": True},
 
     # --- KEBABS / KANAPKI ---
-    {"id": 13, "name": "Kanapka lawasz mały", "price": 23.0, "category": "kebabs", "is_active": True},
-    {"id": 14, "name": "Kanapka lawasz średni", "price": 26.0, "category": "kebabs", "is_active": True},
-    {"id": 15, "name": "Kanapka lawasz duży", "price": 29.0, "category": "kebabs", "is_active": True},
-    {"id": 16, "name": "Kanapka lawasz mega", "price": 35.0, "category": "kebabs", "is_active": True},
+    {"id": 13, "name": "Kanapka lawasz mały", "price": 25.0, "category": "kebabs", "is_active": True},
+    {"id": 14, "name": "Kanapka lawasz średni", "price": 28.0, "category": "kebabs", "is_active": True},
+    {"id": 15, "name": "Kanapka lawasz duży", "price": 31.0, "category": "kebabs", "is_active": True},
+    {"id": 16, "name": "Kanapka lawasz mega", "price": 40.0, "category": "kebabs", "is_active": True},
 
-    {"id": 17, "name": "Kanapka standard gruby", "price": 28.0, "category": "kebabs", "is_active": True},
-    {"id": 18, "name": "Kanapka duży gruby", "price": 32.0, "category": "kebabs", "is_active": True},
-    {"id": 19, "name": "Kanapka giga", "price": 35.0, "category": "kebabs", "is_active": True},
+    {"id": 17, "name": "Kanapka standard gruby", "price": 30.0, "category": "kebabs", "is_active": True},
+    {"id": 18, "name": "Kanapka duży gruby", "price": 34.0, "category": "kebabs", "is_active": True},
+    {"id": 19, "name": "Kanapka giga", "price": 38.0, "category": "kebabs", "is_active": True},
 
-    {"id": 20, "name": "Fryto kebab lawasz", "price": 30.0, "category": "kebabs", "is_active": True},
-    {"id": 21, "name": "Fryto kebab gruby", "price": 32.0, "category": "kebabs", "is_active": True},
-    {"id": 22, "name": "Grecki kebab a’la gyros", "price": 31.0, "category": "kebabs", "is_active": True},
+    {"id": 20, "name": "Fryto kebab lawasz", "price": 32.0, "category": "kebabs", "is_active": True},
+    {"id": 21, "name": "Fryto kebab gruby", "price": 34.0, "category": "kebabs", "is_active": True},
+    {"id": 22, "name": "Grecki kebab a’la gyros", "price": 34.0, "category": "kebabs", "is_active": True},
 
-    {"id": 23, "name": "Talerz kebab mały", "price": 32.0, "category": "kebabs", "is_active": True},
-    {"id": 24, "name": "Talerz kebab duży", "price": 36.0, "category": "kebabs", "is_active": True},
-    {"id": 25, "name": "Kebab Box", "price": 28.0, "category": "kebabs", "is_active": True},
+    {"id": 23, "name": "Talerz kebab mały", "price": 34.0, "category": "kebabs", "is_active": True},
+    {"id": 24, "name": "Talerz kebab duży", "price": 38.0, "category": "kebabs", "is_active": True},
+    {"id": 25, "name": "Kebab Box", "price": 30.0, "category": "kebabs", "is_active": True},
 
-    {"id": 26, "name": "Falafel lawasz", "price": 26.0, "category": "kebabs", "is_active": True},
-    {"id": 27, "name": "Falafel gruby", "price": 27.0, "category": "kebabs", "is_active": True},
-    {"id": 28, "name": "Poka Berlin", "price": 36.0, "category": "kebabs", "is_active": True},
+    {"id": 26, "name": "Falafel lawasz", "price": 28.0, "category": "kebabs", "is_active": True},
+    {"id": 27, "name": "Falafel gruby", "price": 29.0, "category": "kebabs", "is_active": True},
+    {"id": 28, "name": "Poka Berlin", "price": 40.0, "category": "kebabs", "is_active": True},
 
     # --- DANIA GŁÓWNE ---
-    {"id": 29, "name": "Danie dnia", "price": 37.0, "category": "Dania główne", "is_active": True},
-    {"id": 30, "name": "Iskander premium", "price": 45.0, "category": "Dania główne", "is_active": True},
-    {"id": 31, "name": "Special Doner", "price": 38.0, "category": "Dania główne", "is_active": True},
+    {"id": 29, "name": "Danie dnia", "price": 39.0, "category": "Dania główne", "is_active": True},
+    {"id": 30, "name": "Iskander premium", "price": 50.0, "category": "Dania główne", "is_active": True},
+    {"id": 31, "name": "Special Doner", "price": 40.0, "category": "Dania główne", "is_active": True},
 
-    {"id": 32, "name": "Talerz falafel z hummusem", "price": 31.0, "category": "Dania główne", "is_active": True},
-    {"id": 33, "name": "Shawarma", "price": 41.0, "category": "Dania główne", "is_active": True},
-    {"id": 34, "name": "Kapsalon", "price": 33.0, "category": "Dania główne", "is_active": True},
-    {"id": 35, "name": "Zestaw dla dzieci", "price": 31.0, "category": "Dania główne", "is_active": True},
+    {"id": 32, "name": "Talerz falafel z hummusem", "price": 33.0, "category": "Dania główne", "is_active": True},
+    {"id": 33, "name": "Shawarma", "price": 43.0, "category": "Dania główne", "is_active": True},
+    {"id": 34, "name": "Kapsalon", "price": 35.0, "category": "Dania główne", "is_active": True},
+    {"id": 35, "name": "Zestaw dla dzieci", "price": 34.0, "category": "Dania główne", "is_active": True},
 
     # --- GRILL ---
     {"id": 36, "name": "Adana", "price": 60.0, "category": "Grill", "is_active": True},
@@ -103,7 +103,7 @@ MENU_DB = [
     {"id": 39, "name": "Polędwiczki wołowe", "price": 80.0, "category": "Grill", "is_active": True},
     {"id": 40, "name": "Mix grill dla 2 osób", "price": 130.0, "category": "Grill", "is_active": True},
     {"id": 41, "name": "Mix grill dla 4 osób", "price": 240.0, "category": "Grill", "is_active": True},
-    {"id": 42, "name": "Shish tawook", "price": 52.0, "category": "Grill", "is_active": True},
+    {"id": 42, "name": "Shish tawook", "price": 55.0, "category": "Grill", "is_active": True},
     {"id": 43, "name": "Skrzydełka z kurczaka grillowane", "price": 55.0, "category": "Grill", "is_active": True},
 
     # --- NAPOJE ZIMNE ---
