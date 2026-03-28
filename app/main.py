@@ -172,6 +172,7 @@ class MenuItemOut(BaseModel):
     price: float
     category: str
     is_active: bool
+    image_url: Optional[str] = None
     option_groups: List[dict] = []
 
 class OrderItemOptionIn(BaseModel):
