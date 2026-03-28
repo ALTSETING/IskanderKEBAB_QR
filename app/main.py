@@ -173,25 +173,7 @@ class MenuItemOut(BaseModel):
     price: float
     category: str
     is_active: bool
-    image_url: Optional[str] = None
     option_groups: List[dict] = []
-
-def normalize_menu_image_url(item: dict) -> Optional[str]:
-    raw_image = item.get("image_url") or item.get("image") or item.get("photo")
-    if not raw_image:
-        return None
-
-    image_str = str(raw_image).strip()
-    if not image_str:
-        return None
-
-    if image_str.startswith(("http://", "https://", "/images/")):
-        return image_str
-
-    if image_str.startswith("/"):
-        return image_str
-
-    return f"/images/{image_str}"
 
 
 class OrderItemOptionIn(BaseModel):
@@ -253,11 +235,7 @@ def get_menu(category: Optional[str] = Query(default=None)):
         items = [m for m in items if m["category"].strip().lower() == category_l]
 
     return [
-        {
-            **item,
-            "image_url": normalize_menu_image_url(item),
-            "option_groups": PRODUCT_OPTION_GROUPS.get(item["id"], []),
-        }
+        {**item, "option_groups": PRODUCT_OPTION_GROUPS.get(item["id"], [])}
         for item in items
     ]
 
@@ -346,4 +324,4 @@ def delete_order(order_id: int):
     del ORDERS_DB[order_id]
     return {"ok": True, "deleted": order_id}
 
-app.mount("/", StaticFiles(directory=FRONTEND_DIR, html=True), name="frontend")
+
