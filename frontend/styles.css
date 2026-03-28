@@ -233,6 +233,11 @@ label.mini {
   margin-top: 10px;
 }
 
+.commentActions {
+  display: flex;
+  gap: 8px;
+}
+
 .optionGroup {
   margin-top: 10px;
   padding: 10px;
@@ -303,6 +308,30 @@ label.mini {
   max-height: 90px;
   margin-top: 8px;
 }
+
+.addonsWrap.commentWrap.show {
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.addonChoice {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.addonChoice:last-child {
+  border-bottom: none;
+}
+
+.addonChoice input {
+  width: 20px;
+  height: 20px;
+}
+
 
 .mini {
   font-size: 14px;
