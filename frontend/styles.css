@@ -156,6 +156,24 @@ h1 {
   border-radius: 12px;
   background: var(--bg);
 }
+/*-------------------------------------*/
+.itemMain {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.itemPhoto {
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+  background: #f2f2f2;
+}
+/*-----------------------------------------*/
 
 .itemTitle {
   font-size: 16px;
