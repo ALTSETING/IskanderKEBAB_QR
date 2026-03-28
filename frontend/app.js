@@ -80,6 +80,7 @@ function getDishImage(item) {
 }
 
 
+
 function renderMenu() {
   if (!menu.length) {
     menuListEl.textContent = "Menu jest puste.";
@@ -88,7 +89,8 @@ function renderMenu() {
 
   menuListEl.innerHTML = menu.map(m => `
     <div class="item">
-      <div>
+      <img class="itemPhoto" src="${getDishImage(m)}" alt="${esc(m.name)}" loading="lazy" referrerpolicy="no-referrer" />
+      <div class="itemBody">
         <div class="itemTitle">${esc(m.name)}</div>
         <div class="mini">${esc(m.category)} · ${money(m.price)} zł</div>
       </div>
