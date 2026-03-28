@@ -48,7 +48,7 @@ def admin_html_page():
 # ------------------ DB (поки в пам'яті) ------------------
 MENU_DB = [
     # --- STARTERS ---
-    {"id": 1, "name": "Hummus", "price": 20.0, "category": "Przystawki", "is_active": True, "image_url": "/images/favicon.ico.png"},
+    {"id": 1, "name": "Hummus", "price": 20.0, "category": "Przystawki", "is_active": True, "image": "menu-placeholder.svg"},
     {"id": 2, "name": "Mutobal", "price": 20.0, "category": "Przystawki", "is_active": True},
     {"id": 3, "name": "Hummus z mięsem", "price": 25.0, "category": "Przystawki", "is_active": True},
     {"id": 4, "name": "Zupa", "price": 15.0, "category": "Przystawki", "is_active": True},
@@ -174,6 +174,24 @@ class MenuItemOut(BaseModel):
     is_active: bool
     image_url: Optional[str] = None
     option_groups: List[dict] = []
+
+def normalize_menu_image_url(item: dict) -> Optional[str]:
+    raw_image = item.get("image_url") or item.get("image") or item.get("photo")
+    if not raw_image:
+        return None
+
+    image_str = str(raw_image).strip()
+    if not image_str:
+        return None
+
+    if image_str.startswith(("http://", "https://", "/images/")):
+        return image_str
+
+    if image_str.startswith("/"):
+        return image_str
+
+    return f"/images/{image_str}"
+
 
 class OrderItemOptionIn(BaseModel):
     group_id: str
