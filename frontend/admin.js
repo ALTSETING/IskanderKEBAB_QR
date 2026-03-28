@@ -150,6 +150,41 @@ function esc(s) {
     .replaceAll("'", "&#039;");
 }
 
+function normalizeOptionLabel(v) {
+  return String(v ?? "")
+    .normalize("NFKC")
+    .trim()
+    .toLowerCase();
+}
+
+function simplifyOptionLabel(option) {
+  const groupId = normalizeOptionLabel(option?.group_id);
+  const groupTitle = normalizeOptionLabel(option?.group_title);
+  const value = normalizeOptionLabel(option?.value);
+
+  const isSauce = groupId === "sauce" || groupTitle.includes("sos");
+  const isMeat = groupId === "meat" || groupTitle.includes("mięso") || groupTitle.includes("mieso");
+
+  if (isSauce) {
+    if (value.includes("ostry")) return { label: "sos", value: "ostry" };
+    if (value.includes("lagodny") || value.includes("łagodny")) return { label: "sos", value: "lagodny" };
+    if (value.includes("miesz")) return { label: "sos", value: "mieszany" };
+    return { label: "sos", value: option?.value || "" };
+  }
+
+  if (isMeat) {
+    if (value.includes("kurcz")) return { label: "mieso", value: "kurczak" };
+    if (value.includes("woł") || value.includes("wol")) return { label: "mieso", value: "wolowina" };
+    if (value.includes("miesz")) return { label: "mieso", value: "mieszane" };
+    return { label: "mieso", value: option?.value || "" };
+  }
+
+  return {
+    label: option?.group_title || "",
+    value: option?.value || ""
+  };
+}
+
 function setMsg(text, ok = true) {
   msgEl.textContent = text;
   msgEl.className = ok ? "mini ok msg" : "mini err msg";
@@ -252,7 +287,10 @@ async function load() {
               const options = Array.isArray(i.options) ? i.options : [];
               const addons = Array.isArray(i.addons) ? i.addons : [];
               const optionsHtml = options.length
-                ? `<span class="tagComment">Wybrane: ${options.map(opt => `${esc(opt.group_title)}: ${esc(opt.value)}`).join(", ")}</span>`
+                ? `<span class="tagComment">Wybrane: ${options.map(opt => {
+                    const simplified = simplifyOptionLabel(opt);
+                    return `${esc(simplified.label)}: ${esc(simplified.value)}`;
+                  }).join(", ")}</span>`
                 : "";
               return `
                 <div class="mini itemLine">
