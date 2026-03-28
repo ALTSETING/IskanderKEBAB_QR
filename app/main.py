@@ -48,7 +48,7 @@ def admin_html_page():
 # ------------------ DB (поки в пам'яті) ------------------
 MENU_DB = [
     # --- STARTERS ---
-    {"id": 1, "name": "Hummus", "price": 20.0, "category": "Przystawki", "is_active": True, "image": "favicon.ico.png"},
+    {"id": 1, "name": "Hummus", "price": 20.0, "category": "Przystawki", "is_active": True, "image": "photo_2025-12-08_15-08-12.jpg"},
     {"id": 2, "name": "Mutobal", "price": 20.0, "category": "Przystawki", "is_active": True},
     {"id": 3, "name": "Hummus z mięsem", "price": 25.0, "category": "Przystawki", "is_active": True},
     {"id": 4, "name": "Zupa", "price": 15.0, "category": "Przystawki", "is_active": True},
