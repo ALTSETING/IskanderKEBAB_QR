@@ -184,7 +184,7 @@ h1 {
   margin-bottom: 4px;
 }
 
-input,
+input:not([type="radio"]):not([type="checkbox"]),
 .commentInput {
   width: 100%;
   border: 1px solid var(--border);
@@ -199,6 +199,24 @@ input,
 label.mini {
   display: block;
   margin-bottom: 8px;
+}
+
+.payment-method {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+}
+
+.payment-method-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.payment-method-option input {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
 }
 
 .total {
@@ -644,6 +662,22 @@ label.mini {
 
   .mobile-tab.active .mobile-tab-icon-svg {
     filter: drop-shadow(0 0 6px rgba(0, 112, 74, 0.45));
+  }
+
+  @supports (padding: max(0px)) {
+    .wrap {
+      padding-bottom: calc(90px + env(safe-area-inset-bottom));
+    }
+  }
+
+  @media (max-width: 420px) {
+    .payment-method {
+      gap: 8px 12px;
+    }
+
+    .payment-method-option {
+      font-size: 15px;
+    }
   }
 
 }
