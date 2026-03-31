@@ -11,6 +11,7 @@ const floatingCartBtnEl = document.getElementById("floatingCartBtn");
 const floatingCartCountEl = document.getElementById("floatingCartCount");
 const floatingCartPriceEl = document.getElementById("floatingCartPrice");
 const filtersEl = document.getElementById("filters");
+const paymentMethodEls = Array.from(document.querySelectorAll('input[name="paymentMethod"]'));
 
 
 let menu = [];
@@ -334,8 +335,16 @@ document.getElementById("orderBtn").addEventListener("click", async () => {
     return;
   }
 
+  const payment_method = paymentMethodEls.find(el => el.checked)?.value || "";
+  if (!payment_method) {
+    msgEl.textContent = "Wybierz metodę płatności";
+    msgEl.className = "mini err mt12";
+    return;
+  }
+   
   const payload = {
     table_code,
+    payment_method,
     items: cart.map(c => ({
       product_id: c.product_id,
       qty: c.qty,
