@@ -78,18 +78,18 @@ MENU_DB = [
     {"id": 21, "name": "Fryto kebab gruby", "price": 34.0, "category": "kebabs", "is_active": True},
     {"id": 22, "name": "Grecki kebab a’la gyros", "price": 34.0, "category": "kebabs", "is_active": True},
 
-    {"id": 23, "name": "Talerz kebab mały", "price": 34.0, "category": "kebabs", "is_active": True},
-    {"id": 24, "name": "Talerz kebab duży", "price": 38.0, "category": "kebabs", "is_active": True},
-    {"id": 25, "name": "Kebab Box", "price": 30.0, "category": "kebabs", "is_active": True},
-
-    {"id": 26, "name": "Falafel lawasz", "price": 28.0, "category": "kebabs", "is_active": True},
-    {"id": 27, "name": "Falafel gruby", "price": 29.0, "category": "kebabs", "is_active": True},
-    {"id": 28, "name": "Poka Berlin", "price": 40.0, "category": "kebabs", "is_active": True},
+    {"id": 23, "name": "Falafel lawasz", "price": 28.0, "category": "kebabs", "is_active": True},
+    {"id": 24, "name": "Falafel gruby", "price": 29.0, "category": "kebabs", "is_active": True},
+    {"id": 25, "name": "Poka Berlin", "price": 40.0, "category": "kebabs", "is_active": True},
 
     # --- DANIA GŁÓWNE ---
-    {"id": 29, "name": "Danie dnia", "price": 39.0, "category": "Dania główne", "is_active": True},
-    {"id": 30, "name": "Iskander premium", "price": 50.0, "category": "Dania główne", "is_active": True},
-    {"id": 31, "name": "Special Doner", "price": 40.0, "category": "Dania główne", "is_active": True},
+    {"id": 26, "name": "Danie dnia", "price": 39.0, "category": "Dania główne", "is_active": True},
+    {"id": 27, "name": "Iskander premium", "price": 50.0, "category": "Dania główne", "is_active": True},
+    {"id": 28, "name": "Special Doner", "price": 40.0, "category": "Dania główne", "is_active": True},
+
+    {"id": 29, "name": "Talerz kebab mały", "price": 34.0, "category": "kebabs", "is_active": True},
+    {"id": 30, "name": "Talerz kebab duży", "price": 38.0, "category": "kebabs", "is_active": True},
+    {"id": 31, "name": "Kebab Box", "price": 30.0, "category": "kebabs", "is_active": True},
 
     {"id": 32, "name": "Talerz falafel z hummusem", "price": 33.0, "category": "Dania główne", "is_active": True},
     {"id": 33, "name": "Shawarma", "price": 43.0, "category": "Dania główne", "is_active": True},
@@ -157,10 +157,18 @@ DEFAULT_KEBAB_OPTION_GROUPS = [
     },
 ]
 
+MEAT_AND_SAUCE_OPTION_PRODUCTS = {
+    "Talerz kebab mały",
+    "Talerz kebab duży",
+    "Kebab Box",
+}
+
+
 PRODUCT_OPTION_GROUPS: Dict[int, List[dict]] = {
     product["id"]: DEFAULT_KEBAB_OPTION_GROUPS
     for product in MENU_DB
     if product["category"] == "kebabs"
+    or product["name"] in MEAT_AND_SAUCE_OPTION_PRODUCTS
 }
 
 
