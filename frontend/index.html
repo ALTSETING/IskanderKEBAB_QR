@@ -36,7 +36,21 @@
 
         <label class="mini">Table code</label>
         <input id="tableCode" placeholder="Wpisz numer znajdujący się na kodzie QR" />
-
+        
+        
+        <label class="mini mt10">Płatność</label>
+        <div class="mini" id="paymentMethod">
+          <label style="display:inline-flex; align-items:center; gap:6px; margin-right:14px;">
+            <input type="radio" name="paymentMethod" value="gotowka" checked />
+            Gotówka
+          </label>
+          <label style="display:inline-flex; align-items:center; gap:6px;">
+            <input type="radio" name="paymentMethod" value="karta" />
+            Karta
+          </label>
+        </div>
+      
+        
         <div id="cartList" class="mini mt10">Na razie pusto</div>
         <div class="total" id="total">Total: 0 zł</div>
 
