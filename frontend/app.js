@@ -188,10 +188,9 @@ window.addToCart = (id) => {
   const optionGroups = Array.isArray(p.option_groups) ? p.option_groups : [];
   const optionSelections = Object.fromEntries(optionGroups.map(g => [g.group_id, ""]));
   const optionSignature = getOptionSignature(optionSelections);
+  const hasConfigurableOptions = optionGroups.length > 0;
 
-  const ex = cart.find(x => x.product_id === id && x.optionSignature === optionSignature);
-  if(ex) ex.qty += 1;
-  else {
+  if (hasConfigurableOptions) {
     cart.push({
       product_id: id,
       name: p.name,
@@ -205,6 +204,24 @@ window.addToCart = (id) => {
       addons: [],
       addonsOpen: false
     });
+  } else {
+    const ex = cart.find(x => x.product_id === id && x.optionSignature === optionSignature);
+    if(ex) ex.qty += 1;
+    else {
+      cart.push({
+        product_id: id,
+        name: p.name,
+        price: p.price,
+        qty: 1,
+        comment: "",
+        commentOpen: false,
+        optionGroups,
+        optionSelections,
+        optionSignature,
+        addons: [],
+        addonsOpen: false
+      });
+    }
   }
 
   renderCart();
@@ -212,12 +229,36 @@ window.addToCart = (id) => {
 
 window.incQty = (idx) => {
   if(!cart[idx]) return;
+  if ((cart[idx].optionGroups || []).length > 0) {
+    const currentItem = cart[idx];
+    cart.splice(idx + 1, 0, {
+      ...currentItem,
+      qty: 1,
+      comment: "",
+      commentOpen: false,
+      addons: [],
+      addonsOpen: false,
+      optionSelections: Object.fromEntries(
+        (currentItem.optionGroups || []).map(group => [group.group_id, ""])
+      ),
+      optionSignature: getOptionSignature(
+        Object.fromEntries((currentItem.optionGroups || []).map(group => [group.group_id, ""]))
+      )
+    });
+    renderCart();
+    return;
+  }
   cart[idx].qty += 1;
   renderCart();
 };
 
 window.decQty = (idx) => {
   if(!cart[idx]) return;
+  if ((cart[idx].optionGroups || []).length > 0) {
+    cart.splice(idx, 1);
+    renderCart();
+    return;
+  }
   cart[idx].qty -= 1;
   if (cart[idx].qty <= 0) cart.splice(idx, 1);
   renderCart();
