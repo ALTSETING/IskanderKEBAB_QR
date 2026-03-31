@@ -262,6 +262,7 @@ async function load() {
               <div style="font-weight:900; font-size:18px;">Order #${esc(o.order_id)}</div>
               <div class="mini">
                 Table: <span class="tag"><b>${esc(tableLabel)}</b></span>
+                · Płatność: <span class="tag"><b>${esc(o.payment_method || "—")}</b></span>
                 · Status: <span class="tag"><b>${esc(o.status)}</b></span>
                 · ${esc(fmtDate(o.created_at))}
               </div>
