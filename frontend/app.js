@@ -77,7 +77,7 @@ function renderMenu() {
 function renderCart(){
   updateFloatingCartButton();
   if(!cart.length){
-    cartListEl.textContent = "Поки пусто";
+    cartListEl.textContent = "Na razie pusto";
     totalEl.textContent = "Total: 0 zł";
     return;
   }
