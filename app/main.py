@@ -87,9 +87,9 @@ MENU_DB = [
     {"id": 27, "name": "Iskander premium", "price": 50.0, "category": "Dania główne", "is_active": True},
     {"id": 28, "name": "Special Doner", "price": 40.0, "category": "Dania główne", "is_active": True},
 
-    {"id": 29, "name": "Talerz kebab mały", "price": 34.0, "category": "kebabs", "is_active": True},
-    {"id": 30, "name": "Talerz kebab duży", "price": 38.0, "category": "kebabs", "is_active": True},
-    {"id": 31, "name": "Kebab Box", "price": 30.0, "category": "kebabs", "is_active": True},
+    {"id": 29, "name": "Talerz kebab mały", "price": 34.0, "category": "Dania główne", "is_active": True},
+    {"id": 30, "name": "Talerz kebab duży", "price": 38.0, "category": "Dania główne", "is_active": True},
+    {"id": 31, "name": "Kebab Box", "price": 30.0, "category": "Dania główne", "is_active": True},
 
     {"id": 32, "name": "Talerz falafel z hummusem", "price": 33.0, "category": "Dania główne", "is_active": True},
     {"id": 33, "name": "Shawarma", "price": 43.0, "category": "Dania główne", "is_active": True},
