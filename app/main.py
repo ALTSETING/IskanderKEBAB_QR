@@ -174,6 +174,7 @@ PRODUCT_OPTION_GROUPS: Dict[int, List[dict]] = {
 
 
 OrderStatus = Literal["new", "ready", "canceled"]
+PaymentMethod = Literal["gotowka", "karta"]
 
 class MenuItemOut(BaseModel):
     id: int
@@ -206,6 +207,7 @@ class OrderItemIn(BaseModel):
 
 class OrderCreateIn(BaseModel):
     table_code: str = Field(min_length=1, max_length=30)
+    payment_method: PaymentMethod
     items: List[OrderItemIn] = Field(min_length=1)
     
     
@@ -219,6 +221,7 @@ class OrderCreateOut(BaseModel):
 class KitchenOrderOut(BaseModel):
     order_id: int
     table_code: str
+    payment_method: PaymentMethod
     status: OrderStatus
     created_at: datetime
     items: List[dict]
@@ -291,6 +294,7 @@ def create_order(payload: OrderCreateIn):
     ORDERS_DB[order_id] = {
         "order_id": order_id,
         "table_code": payload.table_code,
+        "payment_method": payload.payment_method,
         "status": "new",
         "created_at": datetime.utcnow(),
         "items": items_snapshot,
