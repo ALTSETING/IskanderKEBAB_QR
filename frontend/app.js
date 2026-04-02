@@ -96,7 +96,7 @@ function renderCart(){
   }
   const calcItemTotal = (item) => {
     const addonsTotal = (item.addons || []).reduce((sum, addon) => sum + addon.price, 0);
-    const takeawaySurcharge = takeawayOptionEl?.checked ? item.qty : 0;
+    const takeawaySurcharge = getTakeawaySurcharge(item);
     return (item.price + addonsTotal) * item.qty + takeawaySurcharge;
   };
 
