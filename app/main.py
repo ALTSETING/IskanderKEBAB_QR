@@ -208,6 +208,7 @@ class OrderItemIn(BaseModel):
 class OrderCreateIn(BaseModel):
     table_code: str = Field(min_length=1, max_length=30)
     payment_method: PaymentMethod
+    is_takeaway: bool = False
     items: List[OrderItemIn] = Field(min_length=1)
     
     
@@ -222,6 +223,7 @@ class KitchenOrderOut(BaseModel):
     order_id: int
     table_code: str
     payment_method: PaymentMethod
+    is_takeaway: bool = False
     status: OrderStatus
     created_at: datetime
     items: List[dict]
@@ -295,6 +297,7 @@ def create_order(payload: OrderCreateIn):
         "order_id": order_id,
         "table_code": payload.table_code,
         "payment_method": payload.payment_method,
+        "is_takeaway": payload.is_takeaway,
         "status": "new",
         "created_at": datetime.utcnow(),
         "items": items_snapshot,
