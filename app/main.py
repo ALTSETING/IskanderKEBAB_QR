@@ -121,16 +121,20 @@ MENU_DB = [
     {"id": 52, "name": "Lipton 0.5", "price": 10.0, "category": "Napoje zimne", "is_active": True},
     {"id": 53, "name": "Mountain Dew", "price": 10.0, "category": "Napoje zimne", "is_active": True},
     {"id": 54, "name": "Nektar owocowy", "price": 8.0, "category": "Napoje zimne", "is_active": True},
+    {"id": 55, "name": "Lemonada Estragon", "price": 10.0, "category": "Napoje zimne", "is_active": True},
+    {"id": 56, "name": "Lemonada Gruszka", "price": 10.0, "category": "Napoje zimne", "is_active": True},
+    {"id": 57, "name": "Lemonada Cytryna", "price": 10.0, "category": "Napoje zimne", "is_active": True},
+    {"id": 58, "name": "Lemonada Winogrono", "price": 10.0, "category": "Napoje zimne", "is_active": True},
 
     # --- NAPOJE CIEPŁE ---
-    {"id": 55, "name": "Espresso", "price": 8.0, "category": "Napoje ciepłe", "is_active": True},
-    {"id": 56, "name": "Kawa czarna", "price": 10.0, "category": "Napoje ciepłe", "is_active": True},
-    {"id": 57, "name": "Cappuccino", "price": 14.0, "category": "Napoje ciepłe", "is_active": True},
-    {"id": 58, "name": "Caffe latte", "price": 15.0, "category": "Napoje ciepłe", "is_active": True},
-    {"id": 59, "name": "Herbata arabska", "price": 8.0, "category": "Napoje ciepłe", "is_active": True},
+    {"id": 59, "name": "Espresso", "price": 8.0, "category": "Napoje ciepłe", "is_active": True},
+    {"id": 60, "name": "Kawa czarna", "price": 10.0, "category": "Napoje ciepłe", "is_active": True},
+    {"id": 61, "name": "Cappuccino", "price": 14.0, "category": "Napoje ciepłe", "is_active": True},
+    {"id": 62, "name": "Caffe latte", "price": 15.0, "category": "Napoje ciepłe", "is_active": True},
+    {"id": 63, "name": "Herbata arabska", "price": 8.0, "category": "Napoje ciepłe", "is_active": True},
 
     # --- DESERY ---
-    {"id": 60, "name": "Baklawa", "price": 10.0, "category": "Desery", "is_active": True},
+    {"id": 64, "name": "Baklawa", "price": 10.0, "category": "Desery", "is_active": True},
 ]
 
 TABLE_CODES = {"1","2","3","4","5","6","7","8","9","10"}
