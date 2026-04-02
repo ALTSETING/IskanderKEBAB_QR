@@ -133,10 +133,10 @@ window.login = function login() {
     timer = setInterval(load, 4000);
   } else {
     if (loginMsgEl) {
-      loginMsgEl.textContent = "Невірний логін або пароль (використай admin / 1234)";
+      loginMsgEl.textContent = "Nieprawidłowy login lub hasło";
       loginMsgEl.className = "mini err msg";
     } else {
-      setMsg("Невірний логін або пароль", false);
+      setMsg("Nieprawidłowy login lub hasło", false);
     }
   }
 }
