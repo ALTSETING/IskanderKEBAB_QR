@@ -468,6 +468,10 @@ const tabMenu = document.getElementById("tabMenu");
 const tabCart = document.getElementById("tabCart");
 const menuSection = document.getElementById("menuSection");
 const cartSection = document.getElementById("cartSection");
+const developerSectionEl = document.getElementById("developerSection");
+const developerTabTriggerEl = document.getElementById("developerTabTrigger");
+const backToMenuBtnEl = document.getElementById("backToMenuBtn");
+const shopSectionsEl = document.getElementById("shopSections");
 
 function setMobileTab(tab) {
   if (!menuSection || !cartSection || !tabMenu || !tabCart) return;
@@ -487,6 +491,23 @@ function setMobileTab(tab) {
   }
 
   filtersEl?.classList.toggle("is-hidden-mobile", tab === "cart");
+  updateFloatingCartButton();
+}
+
+function setMainTab(tab) {
+  if (!shopSectionsEl || !developerSectionEl || !developerTabTriggerEl) return;
+
+  const isDeveloperTab = tab === "developer";
+  shopSectionsEl.hidden = isDeveloperTab;
+  developerSectionEl.hidden = !isDeveloperTab;
+
+  developerTabTriggerEl.classList.toggle("is-active", isDeveloperTab);
+  filtersEl?.classList.toggle("is-hidden-mobile", isDeveloperTab || (window.innerWidth <= 768 && tabCart?.classList.contains("active")));
+
+  if (!isDeveloperTab && window.innerWidth <= 768) {
+    setMobileTab(tabCart?.classList.contains("active") ? "cart" : "menu");
+  }
+
   updateFloatingCartButton();
 }
 
@@ -512,20 +533,50 @@ function handleMobileTabs() {
 }
 
 if (tabMenu) {
-  tabMenu.addEventListener("click", () => setMobileTab("menu"));
+  tabMenu.addEventListener("click", () => {
+    setMainTab("shop");
+    setMobileTab("menu");
+  });
 }
 
 if (tabCart) {
-  tabCart.addEventListener("click", () => setMobileTab("cart"));
+  tabCart.addEventListener("click", () => {
+    setMainTab("shop");
+    setMobileTab("cart");
+  });
 }
 
 if (floatingCartBtnEl) {
   floatingCartBtnEl.addEventListener("click", () => {
+    setMainTab("shop");
     setMobileTab("cart");
     cartSection?.scrollIntoView({ behavior: "smooth", block: "start" });
   });
 }
 
-window.addEventListener("resize", handleMobileTabs);
+if (developerTabTriggerEl) {
+  developerTabTriggerEl.addEventListener("click", () => {
+    setMainTab("developer");
+    developerSectionEl?.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+}
 
+if (backToMenuBtnEl) {
+  backToMenuBtnEl.addEventListener("click", () => {
+    setMainTab("shop");
+    if (window.innerWidth <= 768) {
+      setMobileTab("menu");
+    }
+    shopSectionsEl?.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+}
+
+window.addEventListener("resize", () => {
+  handleMobileTabs();
+  if (!developerSectionEl?.hidden) {
+    filtersEl?.classList.add("is-hidden-mobile");
+  }
+});
+
+setMainTab("shop");
 handleMobileTabs();
