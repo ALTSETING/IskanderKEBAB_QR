@@ -209,6 +209,7 @@ window.addToCart = (id) => {
     cart.push({
       product_id: id,
       name: p.name,
+      category: p.category,
       price: p.price,
       qty: 1,
       comment: "",
@@ -226,6 +227,7 @@ window.addToCart = (id) => {
       cart.push({
         product_id: id,
         name: p.name,
+        category: p.category,
         price: p.price,
         qty: 1,
         comment: "",
