@@ -37,6 +37,18 @@ h1 {
   margin-bottom: 4px;
 }
 
+.takeaway-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.takeaway-option input {
+  width: 18px;
+  height: 18px;
+}
+
 .muted {
   font-size: 16px;
   color: var(--muted);
