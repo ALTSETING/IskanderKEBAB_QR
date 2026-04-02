@@ -235,6 +235,10 @@ h1 {
   padding-bottom: 100px;
 }
 
+#shopSections {
+  margin-top: 8px;
+}
+
 .card {
   background: var(--white);
   border-radius: 16px;
