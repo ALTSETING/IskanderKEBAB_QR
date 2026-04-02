@@ -12,6 +12,7 @@ const floatingCartCountEl = document.getElementById("floatingCartCount");
 const floatingCartPriceEl = document.getElementById("floatingCartPrice");
 const filtersEl = document.getElementById("filters");
 const paymentMethodEls = Array.from(document.querySelectorAll('input[name="paymentMethod"]'));
+const takeawayOptionEl = document.getElementById("takeawayOption");
 
 
 let menu = [];
@@ -83,7 +84,8 @@ function renderCart(){
   }
   const calcItemTotal = (item) => {
     const addonsTotal = (item.addons || []).reduce((sum, addon) => sum + addon.price, 0);
-    return (item.price + addonsTotal) * item.qty;
+    const takeawaySurcharge = takeawayOptionEl?.checked ? item.qty : 0;
+    return (item.price + addonsTotal) * item.qty + takeawaySurcharge;
   };
 
   cartListEl.innerHTML = cart.map((c, idx) => `
@@ -169,7 +171,8 @@ function updateFloatingCartButton() {
   const count = cart.reduce((sum, item) => sum + item.qty, 0);
   const total = cart.reduce((sum, item) => {
     const addonsTotal = (item.addons || []).reduce((aSum, addon) => aSum + addon.price, 0);
-    return sum + (item.price + addonsTotal) * item.qty;
+    const takeawaySurcharge = takeawayOptionEl?.checked ? item.qty : 0;
+    return sum + (item.price + addonsTotal) * item.qty + takeawaySurcharge;
   }, 0);
   const cartTabEl = document.getElementById("tabCart");
   const isCartTabActive = window.innerWidth <= 768 && cartTabEl?.classList.contains("active");
@@ -386,6 +389,7 @@ document.getElementById("orderBtn").addEventListener("click", async () => {
   const payload = {
     table_code,
     payment_method,
+    is_takeaway: !!takeawayOptionEl?.checked,
     items: cart.map(c => ({
       product_id: c.product_id,
       qty: c.qty,
@@ -429,6 +433,7 @@ document.getElementById("orderBtn").addEventListener("click", async () => {
 
     msgEl.innerHTML = `<span class="ok">✅ Zamówienie zostało złożone!</span> order_id: <b>${data.order_id}</b>, status: <b>${data.status}</b>`;
     cart = [];
+    if (takeawayOptionEl) takeawayOptionEl.checked = false;
     renderCart();
   } catch (e) {
     msgEl.textContent = "Network error: " + e;
@@ -437,6 +442,11 @@ document.getElementById("orderBtn").addEventListener("click", async () => {
 });
 renderCart();
 loadMenu();
+
+if (takeawayOptionEl) {
+  takeawayOptionEl.addEventListener("change", renderCart);
+}
+
 
 ;
 
