@@ -58,6 +58,18 @@ function esc(s){
     .replaceAll("'","&#039;");
 }
 
+function isColdDrink(item) {
+  return String(item?.category || "").trim().toLowerCase() === "napoje zimne";
+}
+
+function getTakeawaySurcharge(item) {
+  if (!takeawayOptionEl?.checked) return 0;
+  if (isColdDrink(item)) return 0;
+  return item.qty;
+}
+
+
+
 function renderMenu() {
   if (!menu.length) {
     menuListEl.textContent = "Menu jest puste.";
