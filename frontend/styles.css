@@ -609,7 +609,7 @@ label.mini {
   }
 
   #filters {
-    margin-top: calc(20px * 2);
+    margin-top: calc(20px * 1.7);
   }
   
   #filters.is-hidden-mobile {
