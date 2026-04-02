@@ -11,31 +11,8 @@
 <body>
   <div class="wrap">
     <div class="top-intro">
-      <section class="card developer-section" aria-labelledby="developerTitle">
-        <h2 id="developerTitle" class="h2 developer-heading">O deweloperze</h2>
-        <p class="developer-text">
-          System QR Menu został stworzony przez ALTSETING — projekt rozwijający nowoczesne rozwiązania cyfrowe dla biznesu i gastronomii. Tworzymy praktyczne systemy, które usprawniają obsługę klientów i pomagają restauracjom działać szybciej oraz efektywniej.
-        </p>
-        <p class="developer-text">
-          To menu online umożliwia klientom wygodne przeglądanie oferty i składanie zamówień bezpośrednio z telefonu po zeskanowaniu kodu QR. Dzięki temu lokal może skrócić czas obsługi, zwiększyć liczbę zamówień i poprawić komfort klientów.
-        </p>
-        <p class="developer-text">
-          ALTSETING to ekosystem oparty na tokenie ALTST, łączący technologie Web3, płatności oraz rozwiązania dla biznesu. Projekt obejmuje m.in. ALT Pay, SetWallet, system cashback oraz narzędzia do integracji z realnymi usługami.
-        </p>
-        <p class="developer-text">
-          Celem projektu jest wprowadzenie technologii cyfrowych do codziennego biznesu — od płatności po systemy zamówień.
-        </p>
-        <p class="developer-text">
-          Szukasz podobnego rozwiązania dla swojej restauracji? Oferujemy wdrożenie systemu QR Menu dopasowanego do Twojego lokalu.
-        </p>
-        <div class="developer-contact">
-          <a class="developer-link" href="https://altseting.com" target="_blank" rel="noopener noreferrer">altseting.com</a>
-          <p class="developer-contact-title">Skontaktuj się</p>
-          <a class="developer-link" href="mailto:altsetingcompany@gmail.com">altsetingcompany@gmail.com</a>
-        </div>
-      </section>
-
       <h1>QR Menu</h1>
+      <button class="developer-tab-trigger" id="developerTabTrigger" type="button">O deweloperze</button>
     </div>
     
 <div id="filters" class="filters">
@@ -51,7 +28,8 @@
       <button class="btn3" type="button" data-cat="Napoje ciepłe">Napoje ciepłe</button>
       <button class="btn3" type="button" data-cat="Desery">Desery</button>
     </div>
-    <div class="row mt14">
+
+    <div class="row mt14" id="shopSections">
       <div class="card menu" id="menuSection">
         <h2 class="h2">Menu</h2>
         <div id="menuList" class="mini">Loading...</div>
@@ -93,6 +71,33 @@
         <div id="msg" class="mini mt12"></div>
       </div>
     </div>
+
+    <section class="card developer-section mt14" id="developerSection" aria-labelledby="developerTitle" hidden>
+      <div class="developer-panel-top">
+        <h2 id="developerTitle" class="h2 developer-heading">O deweloperze</h2>
+        <button class="btn2 developer-close-btn" id="backToMenuBtn" type="button">Powrót do QR Menu</button>
+      </div>
+      <p class="developer-text">
+        System QR Menu został stworzony przez ALTSETING — projekt rozwijający nowoczesne rozwiązania cyfrowe dla biznesu i gastronomii. Tworzymy praktyczne systemy, które usprawniają obsługę klientów i pomagają restauracjom działać szybciej oraz efektywniej.
+      </p>
+      <p class="developer-text">
+        To menu online umożliwia klientom wygodne przeglądanie oferty i składanie zamówień bezpośrednio z telefonu po zeskanowaniu kodu QR. Dzięki temu lokal może skrócić czas obsługi, zwiększyć liczbę zamówień i poprawić komfort klientów.
+      </p>
+      <p class="developer-text">
+        ALTSETING to ekosystem oparty na tokenie ALTST, łączący technologie Web3, płatności oraz rozwiązania dla biznesu. Projekt obejmuje m.in. ALT Pay, SetWallet, system cashback oraz narzędzia do integracji z realnymi usługami.
+      </p>
+      <p class="developer-text">
+        Celem projektu jest wprowadzenie technologii cyfrowych do codziennego biznesu — od płatności po systemy zamówień.
+      </p>
+      <p class="developer-text">
+        Szukasz podobnego rozwiązania dla swojej restauracji? Oferujemy wdrożenie systemu QR Menu dopasowanego do Twojego lokalu.
+      </p>
+      <div class="developer-contact">
+        <a class="developer-link" href="https://altseting.com" target="_blank" rel="noopener noreferrer">altseting.com</a>
+        <p class="developer-contact-title">Skontaktuj się</p>
+        <a class="developer-link" href="mailto:altsetingcompany@gmail.com">altsetingcompany@gmail.com</a>
+      </div>
+    </section>
 
     <button class="floating-cart-btn" id="floatingCartBtn" type="button" aria-live="polite">
       <span class="floating-cart-left">
